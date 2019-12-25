@@ -15,7 +15,7 @@
         <span>{{time}}</span>
       </div>
       <div class="article-operate-icon">
-        <i class="el-icon-s-comment"></i>
+        <i class="el-icon-s-comment" @click="$router.push(`/article/${id}`)"></i>
         <i class="el-icon-share"></i>
       </div>
     </div>
@@ -23,30 +23,35 @@
 </template>
 <script>
 export default {
-  name: 'article_part',
+  name: "article_part",
   props: {
     content: {
-      default: '肥料掺了金坷垃，能吸收2米以下的氮磷钾，日本的粮食再也不用向美国进口啦!',
+      default:
+        "肥料掺了金坷垃，能吸收2米以下的氮磷钾，日本的粮食再也不用向美国进口啦!",
       type: String
     },
     title: {
-      default: 'TITLE',
-      type: String,
+      default: "TITLE",
+      type: String
     },
     time: {
       type: String,
-      default: '2020-01-01'
+      default: "2020-01-01"
     },
     img: {
       type: String,
-      default: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg'
+      default:
+        "https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg"
+    },
+    id: {
+      type: String,
+      default: "26"
     }
   },
   data() {
-    return {
-    }
+    return {};
   }
-}
+};
 </script>
 <style lang="scss" scoped>
 .el-card {

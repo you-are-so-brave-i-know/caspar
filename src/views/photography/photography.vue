@@ -1,6 +1,5 @@
 <template>
   <div class="homepage">
-    <div class="first">其他内容{{disabled}}</div>
     <div class="waterfall" v-infinite-scroll="load" infinite-scroll-disabled="disabled">
       <div class="px-waterfall" v-for="(el,i) in newWaterfallData" :key="i">
         <div class="waterfallcol" v-for="(item,index) in newWaterfallData[i]" :key="index">
@@ -10,6 +9,7 @@
             :img="item.img"
             :content="item.content"
             :time="item.time"
+            :id="item.id"
           ></articlePart>
         </div>
       </div>
@@ -20,7 +20,7 @@
   </div>
 </template>
 <script>
-import articlePart from '../../components/article_part'
+import articlePart from '../../components/article_card'
 export default {
   components: { articlePart },
   data() {
@@ -30,7 +30,8 @@ export default {
           title: 'a',
           img: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
           content: '肥料掺了金坷垃，一袋能顶两袋撒！日本的粮食再也不用向美国进口啦！',
-          time: '2019-04-09'
+          time: '2019-04-09',
+          id:'ajgeiu3957'
         },
         {
           title: 'a',

@@ -10,23 +10,27 @@ export default new Router({
       path: '/',
       name: 'layout',
       component: Layout,
-      redirect:'home',
+      redirect:'photography',
       children: [
         {
-          path: 'home',
-          name: 'home',
-          component: () => import('@/views/home/home.vue')
+          path: 'photography',
+          name: 'photography',
+          component: () => import('@/views/photography/photography.vue')
         },
         {
-          path: 'one',
-          name: 'one',
-          component: () => import('@/views/one/one.vue')
+          path: 'topic',
+          name: 'topic',
+          component: () => import('@/views/topic/topic.vue')
         },
         {
-          path: 'two',
-          name: 'two',
-          component: () => import('@/views/two/two.vue'),
-          hidden: true
+          path: 'news',
+          name: 'news',
+          component: () => import('@/views/news/news'),
+        },
+        {
+          path:'article/:id',
+          name:'article',
+          component:()=>import('@/views/article/index'),
         }
       ]
     },

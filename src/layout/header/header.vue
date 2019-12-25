@@ -32,13 +32,13 @@ export default {
       activeIndex: 'home',
       navList: [
         {
-          route: 'home', name: 'home'
+          route: 'photography', name: '摄影'
         },
         {
-          route: 'one', name: 'one'
+          route: 'topic', name: '话题'
         },
         {
-          route: 'two', name: 'two'
+          route: 'news', name: '资讯'
         }
       ]
     }
