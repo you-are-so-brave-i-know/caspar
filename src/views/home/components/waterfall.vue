@@ -1,6 +1,6 @@
 <template>
   <div class="waterfall" v-infinite-scroll="load" infinite-scroll-disabled="disabled">
-    <div class="waterfallrow" v-for="(el,i) in newWaterfallData" :key="i">
+    <div class="waterfallrow" v-for="(el,i) in newWaterfallData" v-loading="loading" :key="i">
       <div class="waterfallcol" v-for="(item,index) in newWaterfallData[i]" :key="index">
         <articleCard
           class="part"
@@ -253,6 +253,7 @@ export default {
     };
   },
   created() {
+    this.sizeChange();
     this.getStartImg(this.type);
     this.setNewPart(this.count);
   }

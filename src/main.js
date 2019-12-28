@@ -6,6 +6,8 @@ import './plugins/element.js'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import VueLazyload from 'vue-lazyload'
+import '@/icons' // icon
+
 Vue.config.productionTip = false
 Vue.use(ElementUI);
 Vue.use(VueLazyload,{
