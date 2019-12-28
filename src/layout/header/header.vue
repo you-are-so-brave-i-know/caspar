@@ -32,14 +32,8 @@ export default {
       activeIndex: 'home',
       navList: [
         {
-          route: 'photography', name: '摄影'
+          route: 'home', name: '首页'
         },
-        {
-          route: 'topic', name: '话题'
-        },
-        {
-          route: 'news', name: '资讯'
-        }
       ]
     }
   },

@@ -6,9 +6,9 @@
     <div class="home-main">
       <router-view></router-view>
     </div>
-    <div class="home-footer">
+    <!-- <div class="home-footer">
       <Footer></Footer>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>
@@ -26,6 +26,8 @@ export default {
   &-header {
   }
   &-main {
+    width: 100%;
+    overflow: hidden;
   }
   &-footer {
     height: 60px;

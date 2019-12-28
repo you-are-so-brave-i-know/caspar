@@ -5,8 +5,14 @@ import store from './store'
 import './plugins/element.js'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import VueLazyload from 'vue-lazyload'
 Vue.config.productionTip = false
 Vue.use(ElementUI);
+Vue.use(VueLazyload,{
+  preLoad:1.3,
+  attempt:1
+})
+
 new Vue({
   router,
   store,

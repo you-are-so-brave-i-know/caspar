@@ -1,4 +1,11 @@
 module.exports = {
+  css:{
+    loaderOptions:{
+      sass:{
+        data:`@import "@/style/index.scss";`
+      }
+    }
+  }
   // 部署应用包时的基本URL(域名后eg:htps:www.xxx.com/)
   // publicPath: process.env.NODE_ENV === 'production' ? '/dev/' : '/',
   // // build时生成的生产环境构建文件目录
@@ -37,6 +44,4 @@ module.exports = {
   // runtimeCompiler: true || false,
   // // 默认情况下 babel-loader 会忽略所有 node_modules 中的文件。如果你想要通过 Babel 显式转译一个依赖，可以在这个选项中列出来
   // transpileDependencies: [] || RegExp,
-  
-
 }

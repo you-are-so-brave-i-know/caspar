@@ -10,22 +10,12 @@ export default new Router({
       path: '/',
       name: 'layout',
       component: Layout,
-      redirect:'photography',
+      redirect:'home',
       children: [
         {
-          path: 'photography',
-          name: 'photography',
-          component: () => import('@/views/photography/photography.vue')
-        },
-        {
-          path: 'topic',
-          name: 'topic',
-          component: () => import('@/views/topic/topic.vue')
-        },
-        {
-          path: 'news',
-          name: 'news',
-          component: () => import('@/views/news/news'),
+          path: 'home',
+          name: 'home',
+          component: () => import('@/views/home/home')
         },
         {
           path:'article/:id',

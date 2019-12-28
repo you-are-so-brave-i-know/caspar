@@ -5,8 +5,8 @@
     </el-col>
     <el-col :span="4">
       <div class="info">
-        <!-- <span class="info-text">关于本项目</span>
-        <span class="info-text">@</span> -->
+        <span class="info-text">关于本项目</span>
+        <span class="info-text">@</span>
       </div>
     </el-col>
   </el-row>

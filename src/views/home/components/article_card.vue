@@ -5,7 +5,7 @@
       <el-button style="float: right; padding: 3px 0" type="text">+</el-button>
     </div>
     <div class="article-img">
-      <img :src="img" class="image" />
+      <img :src="img" key="img" class="image" />
     </div>
     <div class="article-content">
       <div>{{content}}</div>
