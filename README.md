@@ -1,11 +1,36 @@
-# admin
+## 仿汉服web页面
 
-## Project setup
+## 目录结构
+```
+mock:          模拟接口数据
+node_modules:  npm包
+dist:          打包存放目录
+src:{
+    api:接口
+    assets:        静态文件
+    components:    公共组件
+    directive:     公共指令
+    icons:         图标目录与封装
+    lang:          语言
+    layout：       页面主布局
+    plugins:       插件配置
+    router:        路由
+    stroe:         vuex目录
+    style:         统一样式
+    utils:         公共方法
+    views:         页面
+    main.js        主配置
+    permission.js  权限配置
+}
+vue.config.js      项目配置
+```
+
+## Project setup 安装插件
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Compiles and hot-reloads for development 运行项目
 ```
 npm run serve
 ```
