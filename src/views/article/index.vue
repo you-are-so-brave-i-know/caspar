@@ -3,6 +3,7 @@
     <div class="position">
       <div class="page-left">
         <articleLeft></articleLeft>
+        <comment></comment>
       </div>
       <div class="page-right">
         <articleRight></articleRight>
@@ -13,13 +14,17 @@
 <script>
 import articleLeft from "./article_left";
 import articleRight from "./article_right";
+import comment from "./comment";
 export default {
   components: {
     articleLeft,
-    articleRight
+    articleRight,
+    comment
   },
   data() {
-    return {};
+    return {
+      textarea: ""
+    };
   },
   mounted() {
     console.log(this.$route.params.id);
@@ -40,8 +45,8 @@ export default {
     .page-right {
       float: right;
       position: fixed;
-      left: 950px;
-      top:100px;
+      left: 1220px;
+      top: 100px;
     }
   }
 }
