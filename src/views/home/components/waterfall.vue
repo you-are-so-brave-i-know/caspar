@@ -25,6 +25,7 @@ export default {
     articleCard
   },
   props: {
+    // 摄像 话题 咨询
     type: {
       type: Number,
       default: 1
@@ -121,11 +122,11 @@ export default {
         }
       ], //模拟用初始数据
       waterfallData: [], //填充数据
-      newWaterfallData: [[], [], [], []], //展示数据
+      newWaterfallData: [[], [], []], //展示数据
       count: 8, //初始展示值
       loading: false,
       addnumber: 4, //每次下拉新增数量
-      row: 4, //行数
+      row: 3, //行数
       clietwidth: "" //浏览器宽
     };
   },
@@ -138,12 +139,12 @@ export default {
     }
   },
   watch: {
-    clietwidth: function(val) {
-      this.row = Math.floor(val / 420);
-    },
-    row: function(val) {
-      this.sizeChange();
-    }
+    // clietwidth: function(val) {
+    //   this.row = Math.floor(val / 420);
+    // },
+    // row: function(val) {
+    //   this.sizeChange();
+    // }
   },
   methods: {
     //   添加卡片
@@ -169,34 +170,34 @@ export default {
       this.newWaterfallData = newData;
     },
     // 浏览器rezise时切换数据格式
-    sizeChange() {
-      let arr = [];
-      let newarr = [];
-      newarr.length = this.row;
-      this.newWaterfallData.forEach((item, index) => {
-        arr = arr.concat(item);
-      });
-      for (let i = 0; i < this.row; i++) {
-        newarr[i] = [];
-      }
-      arr.forEach((el, i) => {
-        switch (i % this.row) {
-          case 0:
-            newarr[0].push(el);
-            break;
-          case 1:
-            newarr[1].push(el);
-            break;
-          case 2:
-            newarr[2].push(el);
-            break;
-          case 3:
-            newarr[3].push(el);
-            break;
-        }
-      });
-      this.newWaterfallData = newarr;
-    },
+    // sizeChange() {
+    //   let arr = [];
+    //   let newarr = [];
+    //   newarr.length = this.row;
+    //   this.newWaterfallData.forEach((item, index) => {
+    //     arr = arr.concat(item);
+    //   });
+    //   for (let i = 0; i < this.row; i++) {
+    //     newarr[i] = [];
+    //   }
+    //   arr.forEach((el, i) => {
+    //     switch (i % this.row) {
+    //       case 0:
+    //         newarr[0].push(el);
+    //         break;
+    //       case 1:
+    //         newarr[1].push(el);
+    //         break;
+    //       case 2:
+    //         newarr[2].push(el);
+    //         break;
+    //       case 3:
+    //         newarr[3].push(el);
+    //         break;
+    //     }
+    //   });
+    //   this.newWaterfallData = newarr;
+    // },
     //加载图片
     load() {
       this.loading = true;
@@ -247,13 +248,13 @@ export default {
     }
   },
   mounted() {
-    const that = this;
-    window.onresize = () => {
-      this.clietwidth = document.body.clientWidth;
-    };
+    // const that = this;
+    // window.onresize = () => {
+    //   this.clietwidth = document.body.clientWidth;
+    // };
   },
   created() {
-    this.sizeChange();
+    // this.sizeChange();
     this.getStartImg(this.type);
     this.setNewPart(this.count);
   }

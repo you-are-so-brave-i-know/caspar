@@ -1,7 +1,21 @@
 <template>
   <div class="details">
     <p class="title">标题</p>
-    <p class="datetime">2019-12-17 11:18:26 | 共0张图 | 共9条评论 | 共75点赞</p>
+    <div>
+      <span class="time">{{time}}</span>
+      &nbsp;&nbsp;|&nbsp;&nbsp;
+      <span>
+        共<span>{{sumImg}}</span>张图
+      </span>
+      &nbsp;&nbsp;|&nbsp;&nbsp;
+      <span>
+        共<span>{{sumComment}}</span>条评论
+      </span>
+      &nbsp;&nbsp;|&nbsp;&nbsp;
+      <span>
+        共<span>{{sumLike}}</span>点赞
+      </span>
+    </div>
     <p class="content">老夫聊发少年狂</p>
     <div class="image">
       <el-image v-for="url in urls" :key="url" :src="url" lazy></el-image>
@@ -22,9 +36,11 @@
 export default {
   data() {
     return {
-      title: "",
-      time: "",
-      point: "75",
+      title: "标题",
+      time: "2019-12-17 11:18:26",
+      sumImg: "0",
+      sumComment: "0",
+      sumLike: "75",
       talk: 9,
       urls: [
         "https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg",
