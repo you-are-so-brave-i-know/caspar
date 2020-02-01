@@ -5,11 +5,6 @@ const bodyParser = require('body-parser')
 const express = require('express')
 const app = express()
 const userApi = require('./api/userApi')
-const noteApi = require('./api/noteApi')
-const questionApi = require('./api/questionApi')
-const commentApi = require('./api/commentApi')
-const destinationApi = require('./api/destinationApi')
-const searchApi = require('./api/searchApi')
 
 app.all('*', function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*')
@@ -27,6 +22,5 @@ app.use(bodyParser.urlencoded({
 // 后端api路由
 app.use('/api/user', userApi)
 // 监听接口
-app.listen(3000, () => {
-  console.log('success listen at post :3000')
-})
+app.listen(3000)
+console.log('success listen at post :3000')

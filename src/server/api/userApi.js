@@ -17,8 +17,8 @@ var jsonWrite = function (res, ret) {
     }
 }
 // 增加用户
-router.get('/userinfo', (req, res) => {
-    var sql = $sql.user.add
+router.get('/alluser', (req, res) => {
+    var sql = $sql.user.all
     conn.query(sql, function (err, result) {
         if (err) {
             jsonWrite(res, err)

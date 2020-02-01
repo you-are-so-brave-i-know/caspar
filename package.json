@@ -11,6 +11,7 @@
   "dependencies": {
     "axios": "^0.19.0",
     "blink-diff": "^1.0.13",
+    "body-parser": "^1.19.0",
     "core-js": "^2.6.11",
     "express": "^4.17.1",
     "mysql": "^2.18.1",

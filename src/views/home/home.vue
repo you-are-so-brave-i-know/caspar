@@ -20,8 +20,16 @@ export default {
       activeName: "photo"
     };
   },
+  mounted() {
+    this.getDate();
+  },
   methods: {
-    handleClick(tab, event) {}
+    handleClick(tab, event) {},
+    getDate() {
+      this.$axios.get("/api/user/alluser", {}, {}).then(res => {
+        console.log(res);
+      });
+    }
   }
 };
 </script>
