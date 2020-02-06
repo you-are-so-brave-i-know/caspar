@@ -8,7 +8,7 @@
     </div>
     <!-- <div class="home-footer">
       <Footer></Footer>
-    </div> -->
+    </div>-->
   </div>
 </template>
 <script>

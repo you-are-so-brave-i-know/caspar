@@ -1,78 +1,45 @@
-var path = require('path')
+const path = require('path')
+const debug = process.env.NODE_ENV !== 'production'
+//const VueConf = require('./src/assets/js/libs/vue_config_class')
+//const vueConf = new VueConf(process.argv)
 module.exports = {
-  // css: {
-  //   loaderOptions: {
-  //     sass: {
-  //       prependData: `@import "@/style/index.scss";`
-  //     }
-  //   }
-  // },
-  // build: {
-  //   env: require('./prod.env'),
-  //   index: path.resolve(__dirname, '../dist/index.html'),
-  //   assetsRoot: path.resolve(__dirname, '../dist'),
-  //   assetsSubDirectory: 'static',
-  //   assetsPublicPath: '/',
-  //   productionSourceMap: true,
-  //   // Gzip off by default as many popular static hosts such as
-  //   // Surge or Netlify already gzip all static assets for you.
-  //   // Before setting to `true`, make sure to:
-  //   // npm install --save-dev compression-webpack-plugin
-  //   productionGzip: false,
-  //   productionGzipExtensions: ['js', 'css']
-  // },
-  dev: {
-    // env: require('./dev.env'),
-    port: 8003,
-    assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
-    proxyTable: {
+  publicPath: './', //vueConf.baseUrl, // 根域上下文目录
+  outputDir: 'dist', // 构建输出目录
+  assetsDir: 'assets', // 静态资源目录 (js, css, img, fonts)
+  lintOnSave: true, // 是否开启eslint保存检测，有效值：ture | false | 'error'
+  runtimeCompiler: true, // 运行时版本是否需要编译
+  transpileDependencies: [], // 默认babel-loader忽略mode_modules，这里可增加例外的依赖包名
+  productionSourceMap: false, // 是否在构建生产包时生成 sourceMap 文件，false将提高构建速度
+  css: { // 配置高于chainWebpack中关于css loader的配置
+    // modules: true, // 是否开启支持‘foo.module.css’样式
+    // extract: true, // 是否使用css分离插件 ExtractTextPlugin，采用独立样式文件载入，不采用<style>方式内联至html文件中
+    sourceMap: false, // 是否在构建样式地图，false将提高构建速度
+    loaderOptions: { // css预设器配置项
+      // sass: {
+      //   data: `@import "@/assets/scss/mixin.scss";`
+      // }
+    }
+  },
+  // parallel: require('os').cpus().length > 1, // 构建时开启多进程处理babel编译
+  pluginOptions: { // 第三方插件配置
+  },
+  pwa: { // 单页插件相关配置 https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-pwa
+  },
+  devServer: {
+    open: true,
+    host: 'localhost',
+    port: 8080,
+    https: false,
+    hotOnly: false,
+    proxy: {
       '/api': {
-        target: 'http://127.0.0.1:3000/api/',
-        changeOrigin: true,
+        target: 'http://127.0.0.1:3000/api',
+        ws: true,
+        changOrigin: true,
         pathRewrite: {
-          '^/api': ''
-        }
+          '^/api': '', //这里理解成用‘/api’代替target里面的地址，后面组件中我们掉接口时直接用api代替 比如我要调用'http://40.00.100.100:3002/user/add'，直接写‘/api/user/add’即可
+        },
       }
     },
-    cssSourceMap: false
-    //   // 部署应用包时的基本URL(域名后eg:htps:www.xxx.com/)
-    //   // publicPath: process.env.NODE_ENV === 'production' ? '/dev/' : '/',
-    //   // // build时生成的生产环境构建文件目录
-    //   // outputDir: 'dist',
-    //   // // 生成时静态文件放置目录
-    //   // assetsDir: '',
-    //   // // 指定index.html的生成输出路径
-    //   // indexPath: '',
-    //   // //默认情况下，生成的静态资源在它们的文件名中包含了 hash 以便更好的控制缓存
-    //   // filenameHashing: true,
-    //   // // 在 multi-page 模式下构建应用
-    //   // pages: {
-    //   //   index: {
-    //   //     // page 的入口
-    //   //     entry: 'src/index/main.js',
-    //   //     // 模板来源
-    //   //     template: 'public/index.html',
-    //   //     // 在 dist/index.html 的输出
-    //   //     filename: 'index.html',
-    //   //     // 当使用 title 选项时，
-    //   //     // template 中的 title 标签需要是 <title><%= htmlWebpackPlugin.options.title %></title>
-    //   //     title: 'Index Page',
-    //   //     // 在这个页面中包含的块，默认情况下会包含
-    //   //     // 提取出来的通用 chunk 和 vendor chunk。
-    //   //     chunks: ['chunk-vendors', 'chunk-common', 'index']
-    //   //   },
-    //   //   // 当使用只有入口的字符串格式时，
-    //   //   // 模板会被推导为 `public/subpage.html`
-    //   //   // 并且如果找不到的话，就回退到 `public/index.html`。
-    //   //   // 输出文件名会被推导为 `subpage.html`。
-    //   //   subpage: 'src/subpage/main.js'
-    //   // },
-    //   // // 是否在开发环境下通过 eslint-loader 在每次保存时 lint 代码
-    //   // lintOnSave: process.env.NODE_ENV !== 'production',
-    //   // // 是否使用包含运行时编译器的 Vue 构建版本
-    //   // runtimeCompiler: true || false,
-    //   // // 默认情况下 babel-loader 会忽略所有 node_modules 中的文件。如果你想要通过 Babel 显式转译一个依赖，可以在这个选项中列出来
-    //   // transpileDependencies: [] || RegExp,
   }
 }

@@ -8,7 +8,7 @@
       <div class="title">
         <span>评论({{count}})</span>
       </div>
-      <hr />
+      <hr>
       <div class="comments">
         <div class="single" v-for="(comment,index) in comments" :key="index">
           <el-row>
@@ -28,7 +28,7 @@
                 <p class="single-time">{{comment.time}}</p>
                 <div class="single-text">{{comment.text}}</div>
                 <div class="singel-other">
-                  <hr />其他内容
+                  <hr>其他内容
                 </div>
               </div>
             </el-col>

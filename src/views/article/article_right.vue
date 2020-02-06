@@ -40,9 +40,10 @@ export default {
       color: #ff6699;
     }
   }
-  .labs{
+  .labs {
     color: #555555;
     font-size: 14px;
   }
 }
 </style>
+
