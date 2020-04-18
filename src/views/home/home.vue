@@ -12,7 +12,7 @@
   </el-tabs>
 </template>
 <script>
-import waterfall from "./components/waterfall";
+import waterfall from "./components/waterfall"
 export default {
   components: { waterfall },
   data() {
@@ -21,14 +21,25 @@ export default {
     };
   },
   mounted() {
-    this.getDate();
+    this.getDate()
   },
   methods: {
-    handleClick(tab, event) {},
+    handleClick(tab, event) {
+      this.getDate()
+    },
     getDate() {
-      this.$axios.get("/api/user/alluser", {}, {}).then(res => {
-        console.log(res);
-      });
+      let type = ''
+      if (this.activeName == 'photo') {
+        type = 'allPhotography'
+      } else if (this.activeName == "tips") {
+        type = 'allTips'
+      } else if (this.activeName == "news") {
+        type = 'allNews'
+      }
+      this.$axios.get(`/api/part/${type}`).then(res => {
+        console.log(res)
+      })
+
     }
   }
 };

@@ -5,6 +5,12 @@
 mock:          模拟接口数据
 node_modules:  npm包
 dist:          打包存放目录
+server:{
+    api:           接口
+    db.js          数据库连接配置
+    server.js      服务器启动配置
+    sqlMap.js      sql语句库
+}
 src:{
     api:接口
     assets:        静态文件
@@ -35,7 +41,7 @@ npm install
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Compiles and minifies for production 打包
 ```
 npm run build
 ```
@@ -48,6 +54,11 @@ npm run test
 ### Lints and fixes files
 ```
 npm run lint
+```
+### Start server  启动服务器
+```
+cd server
+node server.js
 ```
 
 ### Customize configuration
