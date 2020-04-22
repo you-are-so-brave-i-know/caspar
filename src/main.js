@@ -8,6 +8,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 import VueLazyload from 'vue-lazyload'
 import '@/icons' // icon
 import axios from 'axios'
+import waterfall from 'vue-waterfall2'
 
 Vue.prototype.$axios = axios
 Vue.config.productionTip = false
@@ -16,7 +17,7 @@ Vue.use(VueLazyload, {
   preLoad: 1.3,
   attempt: 1
 })
-
+Vue.use(waterfall)
 new Vue({
   router,
   store,

@@ -60,8 +60,8 @@ export default {
   padding: 40px 80px;
   overflow: hidden;
   border-radius: 4px;
-  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1);
-  width: 640px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .24);
+  width: 800px;
   .title {
     margin-bottom: 20px;
     // border-bottom: 1px solid gray;
@@ -88,6 +88,8 @@ export default {
     overflow: hidden;
     font-family: Helvetica, PingFang SC, Tahoma, Arial, sans-serif;
   }
+  .image{
+  }
   .operate {
     margin: 50px 0;
     overflow: hidden;
@@ -104,6 +106,7 @@ export default {
     flex-wrap: nowrap;
     align-items: center;
     i {
+      font-size: 25px;
       margin: 0 10px;
       &:hover {
         color: #66cc00;

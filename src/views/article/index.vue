@@ -45,7 +45,7 @@ export default {
     .page-right {
       float: right;
       position: fixed;
-      left: 1220px;
+      right: 6%;
       top: 100px;
     }
   }

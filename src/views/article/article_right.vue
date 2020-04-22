@@ -29,7 +29,7 @@ export default {
   text-align: center;
   border-radius: 4px;
   padding: 20px;
-  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .24);
   .header {
   }
   .name {

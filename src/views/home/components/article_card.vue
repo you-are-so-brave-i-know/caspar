@@ -2,12 +2,12 @@
   <el-card class="article" shadow="hover">
     <div slot="header" class="clearfix">
       <span>{{title}}</span>
-      <el-button style="float: right; padding: 3px 0" type="text">+</el-button>
+      <el-button class="guanzhu" style="float: right" size="mini">关注</el-button>
     </div>
-    <div class="article-img">
+    <div class="article-img" @click="$router.push(`/article/${id}`)">
       <img :src="img" key="img" class="image" />
     </div>
-    <div class="article-content">
+    <div class="article-content" @click="$router.push(`/article/${id}`)">
       <div>{{content}}</div>
     </div>
     <div class="article-operate">
@@ -63,26 +63,34 @@ export default {
   }
 }
 .article {
-  width: 400px;
+  width: 500px;
   display: block;
   .clearfix {
+    padding-bottom: 10px;
+    .guanzhu {
+    }
   }
   &-img {
-    max-height: 402px;
+    max-height: 472px;
     overflow: hidden;
     img {
       // height: 130px;
-      width: 400px;
+      width: 472px;
       border-radius: 5px;
       margin: 0 3px 0 0;
     }
   }
   &-content {
+    margin: 10px 0px;
     div {
-      font-size: 15px;
+      font-size: 18px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      &:hover{
+        color: #F56C6C;
+        cursor: pointer;
+      }
     }
   }
   &-operate {
@@ -99,6 +107,7 @@ export default {
     &-icon {
       i {
         padding-right: 5px;
+        font-size: 30px;
         &:hover {
           cursor: pointer;
           color: #66ccff;

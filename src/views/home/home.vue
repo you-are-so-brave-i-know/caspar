@@ -12,7 +12,7 @@
   </el-tabs>
 </template>
 <script>
-import waterfall from "./components/waterfall"
+import waterfall from "./components/water"
 export default {
   components: { waterfall },
   data() {
