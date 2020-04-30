@@ -18,6 +18,7 @@ Vue.use(VueLazyload, {
   attempt: 1
 })
 Vue.use(waterfall)
+Vue.prototype.$http = axios
 new Vue({
   router,
   store,

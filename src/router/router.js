@@ -10,7 +10,7 @@ export default new Router({
       path: '/',
       name: 'layout',
       component: Layout,
-      redirect:'home',
+      redirect: 'home',
       children: [
         {
           path: 'home',
@@ -18,9 +18,14 @@ export default new Router({
           component: () => import('@/views/home/home')
         },
         {
-          path:'article/:id',
-          name:'article',
-          component:()=>import('@/views/article/index'),
+          path: 'article/:id',
+          name: 'article',
+          component: () => import('@/views/article/index')
+        },
+        {
+          path: 'homepage/:id',
+          name: 'homepage',
+          component: () => import('@/views/user/homepage')
         }
       ]
     },

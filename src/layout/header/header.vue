@@ -25,6 +25,7 @@
           <div class="header-hover">
             <p id="login" @click="$router.push('/login')">登录</p>
             <p id="registered">注册</p>
+            <p @click="$router.push('homepage/1')" id="homepage">个人主页</p>
           </div>
         </el-popover>
       </div>
@@ -79,7 +80,7 @@ export default {
       cursor: pointer;
       color: #ffffff;
       background-color: #409eff;
-      padding:8px 0px;
+      padding: 8px 0px;
       border-radius: 5px;
     }
   }

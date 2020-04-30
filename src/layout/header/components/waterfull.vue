@@ -35,51 +35,63 @@
 <script>
 import articleCard from "../../../components/article_card";
 export default {
+  props: {
+    data: {
+      type: Array,
+      default: () => {
+        return []
+      },
+    },
+    list: {
+      type: Array,
+      default: () => {
+        return [
+          {
+            title: "a",
+            img:
+              "https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg",
+            content:
+              "肥料掺了金坷垃，一袋能顶两袋撒！日本的粮食再也不用向美国进口啦！",
+            time: "2019-04-09",
+            id: "ajgeiu3957"
+          },
+          {
+            title: "a",
+            img:
+              "https://fuss10.elemecdn.com/8/27/f01c15bb73e1ef3793e64e6b7bbccjpeg.jpeg",
+            content: "",
+            time: "2019-04-09"
+          },
+          {
+            title: "a",
+            img:
+              "https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg",
+            content: "",
+            time: "2019-04-09"
+          },
+          {
+            title: "a",
+            img:
+              "https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg",
+            content: "",
+            time: "2019-04-09"
+          },
+          {
+            title: "a",
+            img:
+              "https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg",
+            content: "",
+            time: "2019-04-09"
+          },
+        ]
+      },
+    }
+  },
   components: {
     articleCard
   },
   data() {
     return {
-      list: [],
-      data: [
-        {
-          title: "a",
-          img:
-            "https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg",
-          content:
-            "肥料掺了金坷垃，一袋能顶两袋撒！日本的粮食再也不用向美国进口啦！",
-          time: "2019-04-09",
-          id: "ajgeiu3957"
-        },
-        {
-          title: "a",
-          img:
-            "https://fuss10.elemecdn.com/8/27/f01c15bb73e1ef3793e64e6b7bbccjpeg.jpeg",
-          content: "",
-          time: "2019-04-09"
-        },
-        {
-          title: "a",
-          img:
-            "https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg",
-          content: "",
-          time: "2019-04-09"
-        },
-        {
-          title: "a",
-          img:
-            "https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg",
-          content: "",
-          time: "2019-04-09"
-        },
-        {
-          title: "a",
-          img:
-            "https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg",
-          content: "",
-          time: "2019-04-09"
-        },
-      ],
       col: Math.floor(document.body.clientWidth / 600),
       screenWidth: window.innerHeight
     };
@@ -91,12 +103,6 @@ export default {
     gutterWidth() {
       return (document.body.clientWidth - this.col * 500 - 160) / (this.col - 1)
     },
-  },
-  watch: {
-    screenWidth(val) {
-      this.screenWidth = val
-      this.col = Math.floor(this.screenWidth / 500)
-    }
   },
   methods: {
     scroll(scrollData) {

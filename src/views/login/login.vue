@@ -135,6 +135,9 @@ export default {
           // }).catch(() => {
           //   this.loading = false
           // })
+          this.$http.post('/api/user/signin',this.loginForm).then(res=>{
+
+          })
         } else {
           // console.log("error submit!!");
           return false;
