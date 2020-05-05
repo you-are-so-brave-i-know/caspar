@@ -1,13 +1,13 @@
 <template>
   <el-tabs v-model="activeName" @tab-click="handleClick">
-    <el-tab-pane label="摄影" name="photo">
-      <waterfall v-if="activeName=='photo'" :type="1"></waterfall>
+    <el-tab-pane label="摄影" name="photography">
+      <waterfall v-if="activeName=='photography'" :type="1" :data="photographyList"></waterfall>
     </el-tab-pane>
     <el-tab-pane label="话题" name="tips">
-      <waterfall v-if="activeName=='tips'" :type="2"></waterfall>
+      <waterfall v-if="activeName=='tips'" :type="2" :data="tipsList"></waterfall>
     </el-tab-pane>
     <el-tab-pane label="资讯" name="news">
-      <waterfall v-if="activeName=='news'" :type="3"></waterfall>
+      <waterfall v-if="activeName=='news'" :type="3" :data="newsList"></waterfall>
     </el-tab-pane>
   </el-tabs>
 </template>
@@ -17,30 +17,33 @@ export default {
   components: { waterfall },
   data() {
     return {
-      activeName: "photo"
+      activeName: "photography",
+      photographyList: [],
+      tipsList: [],
+      newsList: []
     };
   },
   mounted() {
-    this.getDate()
+    this.handleClick()
   },
   methods: {
-    handleClick(tab, event) {
-      this.getDate()
-    },
-    getDate() {
+    handleClick() {
       let type = ''
-      if (this.activeName == 'photo') {
-        type = 'allPhotography'
+      if (this.activeName == 'photography') {
+        type = 'all_photography'
       } else if (this.activeName == "tips") {
-        type = 'allTips'
+        type = 'all_tips'
       } else if (this.activeName == "news") {
-        type = 'allNews'
+        type = 'all_news'
       }
       this.$axios.get(`/api/part/${type}`).then(res => {
-        console.log(res)
+        if (res.status == 200) {
+          this[`${this.activeName}List`] = res.data.list
+        }
+      }).catch(err => {
+        this.$message.error(err.data.msg)
       })
-
-    }
+    },
   }
 };
 </script>

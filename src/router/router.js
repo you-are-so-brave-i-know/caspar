@@ -1,69 +1,75 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Layout from '../layout/layout.vue'
-
 Vue.use(Router)
 export const constantRoutes = [{
-    path: '/login',
-    component: () => import('@/views/login/login'),
-    hidden: true
+  path: '/login',
+  name: 'login',
+  component: () => import('@/views/login/login'),
+  hidden: true
+},
+{
+  path: '/signup',
+  name: 'signup',
+  component: () => import('../views/signup/signup.vue'),
+  hidden: true
+},
+{
+  path: '/404',
+  component: () => import('@/views/error-page/404'),
+  hidden: true
+},
+{
+  path: '/',
+  component: Layout,
+  redirect: '/home',
+  children: [{
+    component: () => import('@/views/home/home'),
+    path: 'home',
+    name: 'home',
+    meta: {
+      title: '首页',
+    }
   },
   {
-    path: '/404',
-    component: () => import('@/views/error-page/404'),
-    hidden: true
+    path: 'article/:id',
+    name: 'article',
+    component: () => import('@/views/main/article/index')
   },
   {
-    path: '/',
-    component: Layout,
-    redirect: '/home',
-    children: [{
-        component: () => import('@/views/home/home'),
-        path: 'home',
-        name: 'home',
-        meta: {
-          title: '首页',
-        }
-      },
-      {
-        path: 'article/:id',
-        name: 'article',
-        component: () => import('@/views/article/index')
-      },
-      {
-        path: '/homepage/:id',
-        name: 'homepage',
-        component: () => import('@/views/user/homepage')
-      }
-    ]
+    path: '/homepage/:id',
+    name: 'homepage',
+    component: () => import('@/views/main/user/homepage')
   }
+  ]
+}
 ]
 export const asyncRoutes = [{
-    path: '/error',
-    component: Layout,
-    redirect: 'noRedirect',
-    name: 'ErrorPages',
-    meta: {
-      title: 'Error Pages',
-      icon: '404'
-    },
-    children: [{
-      path: '404',
-      component: () => import('@/views/error-page/404'),
-      name: 'Page404',
-      meta: {
-        title: '404',
-        noCache: true
-      }
-    }]
+  path: '/error',
+  component: Layout,
+  redirect: 'noRedirect',
+  name: 'ErrorPages',
+  meta: {
+    title: 'Error Pages',
+    icon: '404'
   },
+  children: [{
+    path: '404',
+    component: () => import('@/views/error-page/404'),
+    name: 'Page404',
+    meta: {
+      title: '404',
+      noCache: true
+    }
+  }]
+},
 
-  // 404 page must be placed at the end !!!
-  {
-    path: '*',
-    redirect: '/404',
-    hidden: true
-  }
+// 404 page must be placed at the end !!!
+{
+  path: '*',
+  redirect: '/404',
+  hidden: true
+}
 ]
 
 const createRouter = () => new Router({

@@ -1,28 +1,29 @@
 <template>
   <div>
     <div>
-      <button @click="loadmore">loadmore</button>
-      <!-- <button @click="mix">mix</button> -->
+      <!-- 测试功能用 -->
+      <!-- <button @click="loadmore">loadmore</button> -->
+      <!-- <button @click="mix">mix</button>
       <button @click="switchCol(2)">2列</button>
       <button @click="switchCol(4)">4列</button>
-      <button @click="switchCol(3)">3列</button>
+      <button @click="switchCol(3)">3列</button>-->
     </div>
     <waterfall
       :col="col"
       :width="itemWidth"
       :gutterWidth="gutterWidth"
-      :data="list"
+      :data="showList"
       @loadmore="loadmore"
       @scroll="scroll"
       class="waterfall-container"
       ref="waterfall"
     >
       <template>
-        <div class="cell-item" v-for="(item,index) in list" :key="index">
+        <div class="cell-item" v-for="(item,index) in showList" :key="index" :lazy-src="item.url">
           <articleCard
             class="part"
             :title="item.title"
-            :img="item.img"
+            :url="item.url"
             :content="item.content"
             :time="item.time"
             :id="item.id"
@@ -30,58 +31,30 @@
         </div>
       </template>
     </waterfall>
+    <div class="maxtag" v-show="maxTag">到底了</div>
   </div>
 </template>
 <script>
-import articleCard from "../../../components/article_card";
+import articleCard from "@/components/article_card";
 export default {
   components: {
     articleCard
   },
+  props: {
+    data: {
+      type: Array,
+      default: () => {
+        return []
+      }
+    }
+  },
   data() {
     return {
-      list: [],
-      data: [
-        {
-          title: "a",
-          img:
-            "https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg",
-          content:
-            "肥料掺了金坷垃，一袋能顶两袋撒！日本的粮食再也不用向美国进口啦！",
-          time: "2019-04-09",
-          id: "ajgeiu3957"
-        },
-        {
-          title: "a",
-          img:
-            "https://fuss10.elemecdn.com/8/27/f01c15bb73e1ef3793e64e6b7bbccjpeg.jpeg",
-          content: "",
-          time: "2019-04-09"
-        },
-        {
-          title: "a",
-          img:
-            "https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg",
-          content: "",
-          time: "2019-04-09"
-        },
-        {
-          title: "a",
-          img:
-            "https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg",
-          content: "",
-          time: "2019-04-09"
-        },
-        {
-          title: "a",
-          img:
-            "https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg",
-          content: "",
-          time: "2019-04-09"
-        },
-      ],
+      showList: [],
       col: Math.floor(document.body.clientWidth / 500),
-      screenWidth: window.innerHeight
+      screenWidth: window.innerHeight,
+      loadNum: 9,
+      maxTag: false
     };
   },
   computed: {
@@ -97,27 +70,36 @@ export default {
     screenWidth(val) {
       this.screenWidth = val
       this.col = Math.floor(this.screenWidth / 500)
+    },
+    data(list) {
+      if (list.length > 0) {
+        this.showList = this.data.slice(0, this.loadNum - 1)
+      }
     }
   },
   methods: {
     scroll(scrollData) {
       // console.log(scrollData);
+      // this.loadmore()
     },
     switchCol(col) {
       this.col = col;
       console.log(this.col);
     },
-    loadmore(index) {
-      this.list = this.list.concat(this.data);
+    loadmore() {
+      this.showList = this.data.slice(0, this.showList.length + this.loadNum - 1)
+      if (this.showList.length == this.data.length) {
+        this.maxTag = true
+      }
     }
   },
   created() {
-    console.log(document.body.clientWidth, document.documentElement.clientWidth)
-    console.log(Math.floor(document.body.clientWidth / 500))
+    // console.log(document.body.clientWidth, document.documentElement.clientWidth)
+    // console.log(Math.floor(document.body.clientWidth / 500))
     // this.col = Math.floor(document.body.clientHeight / 500)
   },
   mounted() {
-    this.list = this.data
+
   }
 };
 </script>
@@ -129,6 +111,16 @@ export default {
     flex-direction: row;
     justify-content: center;
     margin-bottom: 20px;
+  }
+}
+.maxtag {
+  font-size: 20px;
+  text-align: center;
+  color: #909399;
+  margin-bottom: 10px;
+  &:hover {
+    color: #606266;
+    cursor: pointer;
   }
 }
 </style>

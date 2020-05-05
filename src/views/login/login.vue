@@ -15,7 +15,7 @@
 
         <el-form-item prop="account">
           <span class="svg-container">
-            <svg-icon icon-class="user"/>
+            <svg-icon icon-class="user" />
           </span>
           <el-input
             ref="account"
@@ -30,9 +30,9 @@
 
         <el-form-item prop="password">
           <span class="svg-container">
-            <svg-icon icon-class="password"/>
+            <svg-icon icon-class="password" />
           </span>
-          <i class=""></i>
+          <i class></i>
           <el-input
             :key="passwordType"
             ref="password"
@@ -45,7 +45,7 @@
             @keyup.enter.native="handleLogin"
           />
           <span class="show-pwd" @click="showPwd">
-            <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"/>
+            <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
           </span>
         </el-form-item>
 
@@ -58,28 +58,20 @@
           @click.native.prevent="handleLogin"
         >登陆</el-button>
 
-        <!-- <div class="tips">
-          <span style="margin-right:20px;">account: admin</span>
-          <span>password: any</span>
-        </div>-->
+        <div class="tips">
+          <span @click="$router.push('/signup')" style="margin-right:20px;">没有账号？</span>
+        </div>
       </el-form>
     </div>
   </div>
 </template>
 
 <script>
-import { validaccount } from "@/utils/validate";
+// import { validaccount } from "@/utils/validate";
 
 export default {
   name: "Login",
   data() {
-    const validateaccount = (rule, value, callback) => {
-      if (!validaccount(value)) {
-        callback(new Error("请输入正确的邮箱地址"));
-      } else {
-        callback();
-      }
-    };
     const validatePassword = (rule, value, callback) => {
       if (value.length < 6) {
         callback(new Error("密码需要大于6位"));
@@ -128,49 +120,40 @@ export default {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true;
-          // this.$store.dispatch('user/login', this.loginForm).then(() => {
-
-          //   this.loading = false
-          // }).catch(() => {
-          //   this.loading = false
-          // })
           this.$http.post('/api/user/signin', {
             email: this.loginForm.account,
             password: this.loginForm.password,
-          }, {}).then((res) => {
-            if (res.data.result === 0) {
-              this.$message.error('查询不到邮箱')
-            }
-            if (res.data.result === 1) {
-              this.$message.success('登录成功')
-              // this.$router.go({ path: '/home' })
-              this.$router.push({ path: '/home'});
-              this.loading = false;
-            }
-            if (res.data.result === 2) {
-              this.$message.error('用户密码错误')
-            }
-            if (res.data.result === 3) {
+          }, {}).then(res => {
+            if (res.data.result === 200) {
+              this.$message.success(res.data.msg)
+              this.$router.push({ path: '/home' });
+              this.setlocal(res.data.data[0])
+              // this.local
+            } else {
               this.$message.error(res.data.msg)
             }
-            if (res.data.result === 4) {
-              this.$message.error('管理员账户登录成功')
-              this.$router.go({ path: '/root' })
-            }
-            if (res.data.result === 5) {
-              this.$message.error('密码错误')
-            }
           }).catch(err => {
-            console.log(err)
+            this.$message.error(err.data.msg)
+          }).finally(() => {
+            this.loading = false
           })
         } else {
-          // console.log("error submit!!");
           return false;
         }
       });
+    },
+    setlocal(data) {
+      window.localStorage.setItem('userName', data.username)
+      window.localStorage.setItem('state', data.state)
+      window.localStorage.setItem('isLogin', true)
+      window.localStorage.setItem('userId', data.id)
     }
+  },
+  mounted() {
+    // console.log(window.localStorage)
   }
-};
+
+}
 </script>
 
 <style lang="scss">
@@ -270,6 +253,10 @@ $light_gray: #eee;
     span {
       &:first-of-type {
         margin-right: 16px;
+      }
+      &:hover {
+        color: #409eff;
+        cursor: pointer;
       }
     }
   }

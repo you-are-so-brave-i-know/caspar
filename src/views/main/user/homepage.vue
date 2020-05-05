@@ -21,9 +21,9 @@
   </div>
 </template>
 <script>
-import card from "../../components/article_card"
+// import card from "../../components/article_card"
 export default {
-  components: { card },
+  // components: { card },
   data() {
     return {
       activeName: "1"

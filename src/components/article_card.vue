@@ -2,10 +2,17 @@
   <el-card class="article" shadow="hover">
     <div slot="header" class="clearfix">
       <span>{{title}}</span>
-      <el-button class="guanzhu" style="float: right" size="mini">关注</el-button>
+      <el-button
+        class="guanzhu"
+        @click="likeit"
+        style="float: right"
+        size="mini"
+        plain
+        :disabled="islike"
+      >喜欢</el-button>
     </div>
     <div class="article-img" @click="$router.push(`/article/${id}`)">
-      <img :src="img" key="img" class="image" />
+      <img :src="url" key="img" class="image" />
     </div>
     <div class="article-content" @click="$router.push(`/article/${id}`)">
       <div>{{content}}</div>
@@ -26,31 +33,39 @@ export default {
   name: "article_part",
   props: {
     content: {
-      default:
-        "肥料掺了金坷垃，能吸收2米以下的氮磷钾，日本的粮食再也不用向美国进口啦!",
       type: String
     },
     title: {
       default: "TITLE",
-      type: String
     },
     time: {
       type: String,
-      default: "2020-01-01"
     },
-    img: {
+    url: {
       type: String,
-      default:
-        "https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg"
     },
     id: {
-      type: String,
-      default: "26"
+      type: [String, Number]
     }
   },
   data() {
-    return {};
-  }
+    return {
+      islike: false
+    };
+  },
+  methods: {
+    likeit() {
+      const params = {
+        id: this.id
+      }
+      const url = '/api/part/likeit'
+      this.$axios.post(url, params, {}).then(res => {
+        if (res.status == 200) {
+          this.islike = true
+        }
+      })
+    }
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -87,8 +102,8 @@ export default {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      &:hover{
-        color: #F56C6C;
+      &:hover {
+        color: #f56c6c;
         cursor: pointer;
       }
     }

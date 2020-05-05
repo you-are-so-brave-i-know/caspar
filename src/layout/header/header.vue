@@ -23,9 +23,10 @@
             src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"
           ></el-avatar>
           <div class="header-hover">
-            <p id="login" @click="$router.push('/login')">登录</p>
-            <p id="registered">注册</p>
+            <p id="login" v-show="!islogin" @click="$router.push('/login')">登录</p>
+            <p id="registered" v-show="!islogin" @click="$router.push('/signup')">注册</p>
             <p @click="$router.push('/homepage/1')" id="homepage">个人主页</p>
+            <p @click="signOut" v-show="islogin">注销</p>
           </div>
         </el-popover>
       </div>
@@ -33,9 +34,11 @@
   </div>
 </template>
 <script>
+const islogin = window.localStorage.getItem('isLogin')
 export default {
   data() {
     return {
+      islogin: islogin,
       activeIndex: "home",
       navList: [
         {
@@ -49,6 +52,10 @@ export default {
     handleSelect(key, keyPath) {
       // console.log(key, keyPath)
       this.$router.push(`/${key}`);
+    },
+    signOut() {
+      window.localStorage.setItem('isLogin', false)
+      this.$router.push({ path: '/login' })
     }
   }
 };

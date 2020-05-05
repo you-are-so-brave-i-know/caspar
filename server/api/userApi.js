@@ -57,19 +57,20 @@ router.post('/signin', (req, res) => {
     if (result) {
       if (result.length === 0) {
         res.json({
-          result: 0,
+          result: 400,
           msg: '用户账号不存在'
         })
       } else {
         if (params.password === result[0].password) {
           res.json({
-            result: 1,
-            msg: '用户密码正确'
+            result: 200,
+            msg: '登录成功',
+            data: result[0] ? result[0] : {}
           })
           setstate()
         } else {
           res.json({
-            result: 2,
+            result: 400,
             msg: '用户密码错误'
           })
         }

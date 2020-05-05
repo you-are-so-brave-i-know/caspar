@@ -28,6 +28,12 @@ src:{
     main.js        主配置
     permission.js  权限配置
 }
+views:{
+    aricle:       文章页面
+    error-page:   错误页
+    home:         主页
+    login：       登录页
+}
 vue.config.js      项目配置
 ```
 

@@ -21,7 +21,10 @@ const sqlMap = {
   },
   destination: {},
   part: {
-    all_photography: 'select * from user'
+    all_photography: 'select * from part where type = 1',
+    all_tips: 'select * from part where type = 2',
+    all_news: 'select * from part where type = 3',
+    add_comment: "insert into comment (id, userId, userName , articleId, content) values (0, ?, ?, ?, ?)"
   }
 }
 module.exports = sqlMap

@@ -2,11 +2,11 @@
   <div class="main">
     <div class="write">
       <el-input type="textarea" :rows="4" placeholder="请输入内容" v-model="textarea"></el-input>
-      <el-button type="primary" size="small">评论</el-button>
+      <el-button type="primary" size="small" @click="addComment">评论</el-button>
     </div>
     <div class="content">
       <div class="title">
-        <span>评论({{count}})</span>
+        <span>评论{{ '('+comments.length+')'}}</span>
       </div>
       <hr />
       <div class="comments">
@@ -22,14 +22,14 @@
             <el-col :span="21">
               <div class="single-content">
                 <div class="single-author">
-                  <span>{{comment.author}}</span>
-                  <i class="el-icon-star-off single-zan">{{comment.like}}</i>
+                  <span>{{comment.userName}}</span>
+                  <!-- <i class="el-icon-star-off single-zan">{{comment.like}}</i> -->
                 </div>
-                <p class="single-time">{{comment.time}}</p>
-                <div class="single-text">{{comment.text}}</div>
-                <div class="singel-other">
+                <p class="single-time">{{ formatDate(comment.create_time)}}</p>
+                <div class="single-text">{{comment.content}}</div>
+                <!-- <div class="singel-other">
                   <hr />其他内容
-                </div>
+                </div>-->
               </div>
             </el-col>
           </el-row>
@@ -39,32 +39,56 @@
   </div>
 </template>
 <script>
+import { formatSqlDate } from '@/utils/formatter'
 export default {
   data() {
     return {
       textarea: "",
       count: 13,
-      comments: [
-        {
-          id: "123",
-          header: "",
-          time: "19-08-13 18:37",
-          like: "0",
-          author: "苹果",
-          text: "八八八八八八八",
-          other: []
-        },
-        {
-          id: "32423",
-          header: "",
-          time: "19-08-13 18:37",
-          like: "1",
-          author: "香蕉",
-          text: "吃葡萄不吐葡萄皮",
-          other: []
-        }
-      ]
+      comments: []
     };
+  },
+  methods: {
+    addComment() {
+      // console.log(this.$route.params.id)
+      if (this.textarea) {
+        const params = {
+          userName: window.localStorage.getItem('userName'),
+          userId: window.localStorage.getItem('userId'),
+          articleId: this.$route.params.id,
+          content: this.textarea
+        }
+        const url = 'api/part/add_comment'
+        this.$axios.post(url, params, {}).then(res => {
+          if (res.status == 200) {
+            this.getComment()
+          }
+        })
+      } else {
+        this.$notify({
+          title: '提示',
+          message: '请填写评论内容',
+          type: 'warning'
+        });
+      }
+
+    },
+    getComment() {
+      const params = {
+        id: this.$route.params.id,
+      }
+      // console.log(params)
+      const url = 'api/part/get_comment'
+      this.$axios.post(url, params, {}).then(res => {
+        this.comments = res.data.list
+      })
+    },
+    formatDate(val, fmt) {
+      return formatSqlDate(val, fmt)
+    }
+  },
+  mounted() {
+    this.getComment()
   }
 };
 </script>
@@ -74,7 +98,7 @@ export default {
   border-radius: 4px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.24);
   padding: 20px 80px;
-  width: 800px;
+  width: 750px;
   margin: 20px 0px;
   .write {
     // padding: 10px 0;
@@ -91,7 +115,7 @@ export default {
         border-radius: 20px;
         padding: 8px;
         margin: 15px 0px;
-
+        background: rgba(179, 216, 255, 0.2);
         &-header {
           position: relative;
           top: 8px;
@@ -123,6 +147,7 @@ export default {
             font-size: 14px;
             white-space: pre-wrap;
             overflow: hidden;
+            padding: 5px 0px;
           }
           .singel-other {
             width: 90%;
@@ -133,7 +158,7 @@ export default {
   }
 }
 @media screen and(max-width:1600px) {
-  .main{
+  .main {
     width: 750px;
   }
 }
