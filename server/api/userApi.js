@@ -37,76 +37,45 @@ router.post('/signin', (req, res) => {
   var sql = `select * from user where email = '${params.email}'`
   // 更新用户状态
   var sql2 = `UPDATE user set state = 1 where email ='${params.email}'`
-  // 查询管理员账户信息
-  var sql3 = `select * from root where email = '${params.email}' `
   // 登录类型为用户时
-  if (params.type === '0') {
-    // 更新用户状态
-    var setstate = function () {
-      conn.query(sql2, function (err, result) {
-        if (err) {
-          console.log(err)
-        }
-        if (result) {
-          console.log('用户登录成功')
-        }
-      })
+  // 更新用户状态
+  var setstate = function () {
+    conn.query(sql2, function (err, result) {
+      if (err) {
+        console.log(err)
+      }
+      if (result) {
+        console.log('用户登录成功')
+      }
+    })
+  }
+  // 匹配密码
+  conn.query(sql, function (err, result) {
+    if (err) {
+      console.log(err)
     }
-    // 匹配密码
-    conn.query(sql, function (err, result) {
-      if (err) {
-        console.log(err)
-      }
-      if (result) {
-        if (result.length === 0) {
+    if (result) {
+      if (result.length === 0) {
+        res.json({
+          result: 0,
+          msg: '用户账号不存在'
+        })
+      } else {
+        if (params.password === result[0].password) {
           res.json({
-            result: 0,
-            msg: '用户账号不存在'
+            result: 1,
+            msg: '用户密码正确'
           })
+          setstate()
         } else {
-          if (params.password === result[0].password) {
-            res.json({
-              result: 1,
-              msg: '用户密码正确'
-            })
-            setstate()
-          } else {
-            res.json({
-              result: 2,
-              msg: '用户密码错误'
-            })
-          } 
+          res.json({
+            result: 2,
+            msg: '用户密码错误'
+          })
         }
       }
-    })
-  }
-  if (params.type === '1') {
-    conn.query(sql3, function (err, result) {
-      if (err) {
-        console.log(err)
-      }
-      if (result) {
-        if (result.length === 0) {
-          res.json({
-            result: 3,
-            msg: '管理员账号不存在'
-          })
-        } else {
-          if (params.password === result[0].password) {
-            res.json({
-              result: 4,
-              msg: '管理员密码正确'
-            })
-          } else {
-            res.json({
-              result: 5,
-              msg: '管理员密码错误'
-            })
-          }
-        }
-      }
-    })
-  }
+    }
+  })
 })
 // 获取当前登录的用户
 router.get('/nowuser', (req, res) => {

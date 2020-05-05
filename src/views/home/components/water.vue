@@ -80,16 +80,17 @@ export default {
           time: "2019-04-09"
         },
       ],
-      col: Math.floor(document.body.clientWidth / 600),
+      col: Math.floor(document.body.clientWidth / 500),
       screenWidth: window.innerHeight
     };
   },
   computed: {
     itemWidth() {
-      return 500
+      return 400
     },
     gutterWidth() {
-      return (document.body.clientWidth - this.col * 500 - 160) / (this.col - 1)
+      return (document.body.clientWidth - this.col * 400 - 160) / (this.col - 1)
+      // return 10
     },
   },
   watch: {

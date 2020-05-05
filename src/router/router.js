@@ -3,36 +3,83 @@ import Router from 'vue-router'
 import Layout from '../layout/layout.vue'
 
 Vue.use(Router)
-
-export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'layout',
-      component: Layout,
-      redirect: 'home',
-      children: [
-        {
-          path: 'home',
-          name: 'home',
-          component: () => import('@/views/home/home')
-        },
-        {
-          path: 'article/:id',
-          name: 'article',
-          component: () => import('@/views/article/index')
-        },
-        {
-          path: 'homepage/:id',
-          name: 'homepage',
-          component: () => import('@/views/user/homepage')
+export const constantRoutes = [{
+    path: '/login',
+    component: () => import('@/views/login/login'),
+    hidden: true
+  },
+  {
+    path: '/404',
+    component: () => import('@/views/error-page/404'),
+    hidden: true
+  },
+  {
+    path: '/',
+    component: Layout,
+    redirect: '/home',
+    children: [{
+        component: () => import('@/views/home/home'),
+        path: 'home',
+        name: 'home',
+        meta: {
+          title: '首页',
         }
-      ]
+      },
+      {
+        path: 'article/:id',
+        name: 'article',
+        component: () => import('@/views/article/index')
+      },
+      {
+        path: '/homepage/:id',
+        name: 'homepage',
+        component: () => import('@/views/user/homepage')
+      }
+    ]
+  }
+]
+export const asyncRoutes = [{
+    path: '/error',
+    component: Layout,
+    redirect: 'noRedirect',
+    name: 'ErrorPages',
+    meta: {
+      title: 'Error Pages',
+      icon: '404'
     },
-    {
-      path: '/login',
-      name: 'login',
-      component: () => import('@/views/login/login')
-    }
-  ]
+    children: [{
+      path: '404',
+      component: () => import('@/views/error-page/404'),
+      name: 'Page404',
+      meta: {
+        title: '404',
+        noCache: true
+      }
+    }]
+  },
+
+  // 404 page must be placed at the end !!!
+  {
+    path: '*',
+    redirect: '/404',
+    hidden: true
+  }
+]
+
+const createRouter = () => new Router({
+  // mode: 'history', // require service support
+  scrollBehavior: () => ({
+    y: 0
+  }),
+  routes: constantRoutes
 })
+
+const router = createRouter()
+
+
+export function resetRouter() {
+  const newRouter = createRouter()
+  router.matcher = newRouter.matcher // reset router
+}
+
+export default router

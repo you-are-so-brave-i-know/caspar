@@ -132,4 +132,9 @@ export default {
     }
   }
 }
+@media screen and(max-width:1600px) {
+  .main{
+    width: 750px;
+  }
+}
 </style>

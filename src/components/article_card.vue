@@ -63,7 +63,7 @@ export default {
   }
 }
 .article {
-  width: 500px;
+  width: 400px;
   display: block;
   .clearfix {
     padding-bottom: 10px;
@@ -75,7 +75,7 @@ export default {
     overflow: hidden;
     img {
       // height: 130px;
-      width: 472px;
+      width: 372px;
       border-radius: 5px;
       margin: 0 3px 0 0;
     }
