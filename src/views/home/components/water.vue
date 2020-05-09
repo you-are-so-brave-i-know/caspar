@@ -25,8 +25,10 @@
             :title="item.title"
             :url="item.url"
             :content="item.content"
-            :time="item.time"
+            :time="item.create_time"
             :id="item.id"
+            :authorId="item.authorId"
+            :authorName="item.userName"
           ></articleCard>
         </div>
       </template>

@@ -1,25 +1,25 @@
 <template>
   <el-card class="article" shadow="hover">
     <div slot="header" class="clearfix">
-      <span>{{title}}</span>
+      <span>{{authorName}}</span>
       <el-button
         class="guanzhu"
-        @click="likeit"
+        @click="attention(authorId,authorName)"
         style="float: right"
         size="mini"
         plain
-        :disabled="islike"
-      >喜欢</el-button>
+        :disabled="disabled"
+      >关注</el-button>
     </div>
     <div class="article-img" @click="$router.push(`/article/${id}`)">
       <img :src="url" key="img" class="image" />
     </div>
     <div class="article-content" @click="$router.push(`/article/${id}`)">
-      <div>{{content}}</div>
+      <div>{{title}}</div>
     </div>
     <div class="article-operate">
       <div class="article-operate-time">
-        <span>{{time}}</span>
+        <span>{{formatter(time)}}</span>
       </div>
       <div class="article-operate-icon">
         <i class="el-icon-s-comment" @click="$router.push(`/article/${id}`)"></i>
@@ -29,6 +29,7 @@
   </el-card>
 </template>
 <script>
+import { formatSqlDate } from '@/utils/formatter'
 export default {
   name: "article_part",
   props: {
@@ -46,24 +47,36 @@ export default {
     },
     id: {
       type: [String, Number]
+    },
+    authorId: {
+      type: [String, Number]
+    },
+    authorName: {
+      type: [String]
     }
   },
   data() {
     return {
-      islike: false
+      disabled: false
     };
   },
   methods: {
-    likeit() {
+    attention(parentId, parentName) {
       const params = {
-        id: this.id
+        userId: window.localStorage.getItem('userId'),
+        parentId: parentId,
+        parentName: parentName
       }
-      const url = '/api/part/likeit'
+      const url = '/api/part/attention'
       this.$axios.post(url, params, {}).then(res => {
         if (res.status == 200) {
-          this.islike = true
+          this.$message.success(res.data.msg)
+          this.disabled = true
         }
       })
+    },
+    formatter(val) {
+      return formatSqlDate(val)
     }
   },
 };

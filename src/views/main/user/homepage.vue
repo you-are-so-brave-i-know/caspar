@@ -9,8 +9,14 @@
         <div class="list-item" v-for="(item,index) in list" :key="index">
           <i class="el-icon-user header"></i>
           <span class="name">{{item.parentName}}</span>
-          <el-button type="danger" size="mini" class="attetion">取消关注</el-button>
+          <el-button
+            type="danger"
+            size="mini"
+            class="attetion"
+            @click="unsubscribe(item.parentId)"
+          >取消关注</el-button>
         </div>
+        <div class="noattention" v-show="list.length==0">没有任何关注的人</div>
       </div>
       <el-tabs v-model="activeName" @tab-click="handleClick" class="right">
         <el-tab-pane label="全部" name="0">
@@ -35,24 +41,50 @@ export default {
   // components: { card },
   data() {
     return {
+      userId: window.localStorage.getItem('userId'),
       activeName: "1",
       list: [
-        {
-          userId: '',
-          parentName: '吃瓜群众',
-          parentId: '5',
-        }
       ]
     };
   },
   mounted() {
     this.getDate()
+    this.getAttentionList()
   },
   methods: {
     handleClick(tab, event) {
       this.getDate()
     },
     getDate() {
+    },
+    getAttentionList() {
+      const params = {
+        userId: this.userId
+      }
+      const url = 'api/part/getAttentionList'
+      this.$axios.post(url, params, {}).then(res => {
+        this.list = res.data.list
+      })
+    },
+    unsubscribe(parentId) {
+      const params = {
+        userId: this.userId,
+        parentId: parentId
+      }
+      const url = 'api/part/unsubscribe'
+      this.$confirm('是否取消关注？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$axios.post(url, params, {}).then(res => {
+          this.$message.success(res.data.msg)
+        }).catch().finally(() => {
+          this.getAttentionList()
+        })
+      }).catch(() => {
+      });
+
     }
   }
 };
@@ -69,6 +101,7 @@ export default {
 }
 .main {
   height: 100%;
+  background: #ededef;
   .mypage {
     height: 300px;
     width: 100%;
@@ -76,21 +109,26 @@ export default {
   }
   .content {
     display: flex;
-
+    padding: 20px;
     .left {
       width: 450px;
-      background-color: #ededef;
+      background-color: #fff;
       padding-bottom: 20px;
       min-height: 600px;
-      .title{
+      border: 1px solid gray;
+      border-radius: 5px;
+      // margin: 0 30px;
+      .title {
         text-align: center;
         padding: 10px 5px;
-        font-size: 20px;
+        font-size: 22px;
+        border-bottom: 1px solid gray;
+        font-weight: 600;
       }
       .list-item {
-        width: 400px;
+        width: 380px;
         height: 50px;
-        margin: 10px auto;
+        margin: 15px auto;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.32), 0 0 6px rgba(0, 0, 0, 0.24);
         border-radius: 5px;
         padding: 8px;
@@ -100,8 +138,9 @@ export default {
         flex-wrap: nowrap;
         background: #fff;
         align-items: center;
-        &:hover{
-           box-shadow: 0 2px 4px rgba(46, 140, 156, 0.31), 0 0 6px rgba(46, 140, 156, 0.24);
+        &:hover {
+          box-shadow: 0 2px 4px rgba(46, 140, 156, 0.31),
+            0 0 6px rgba(46, 140, 156, 0.24);
         }
         .header {
           font-size: 35px;
@@ -114,9 +153,17 @@ export default {
     }
     .right {
       width: calc(100% - 450px);
-      border: 1px solid;
+      border: 1px solid gray;
+      border-radius: 5px;
       margin-left: 30px;
+      background: #fff;
+      padding: 1px;
     }
   }
+}
+.noattention {
+  text-align: center;
+  color: rgb(140, 197, 255);
+  padding-top: 10px;
 }
 </style>

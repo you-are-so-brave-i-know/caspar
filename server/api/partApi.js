@@ -125,4 +125,52 @@ router.post('/get_comment', (req, res) => {
     }
   })
 })
+// 获取关注列表
+router.post('/getAttentionList', (req, res) => {
+  var params = req.body
+  var sql = `select * from attention where userId=${params.userId}`
+  conn.query(sql, function (err, result) {
+    if (err) {
+      jsonWrite(res, err)
+    }
+    if (result) {
+      res.json({
+        msg: 'success',
+        list: result
+      })
+    }
+  })
+})
+// 关注
+router.post('/attention', (req, res) => {
+  var params = req.body
+  var sql = `INSERT INTO attention (userId,parentId,parentName) VALUES(${params.userId},${params.parentId},'${params.parentName}') `
+  conn.query(sql, function (err, result) {
+    if (err) {
+      jsonWrite(res, err)
+    }
+    if (result) {
+      res.json({
+        msg: '关注成功',
+        data: result
+      })
+    }
+  })
+})
+// 取消关注
+router.post('/unsubscribe', (req, res) => {
+  var params = req.body
+  var sql = `DELETE FROM attention WHERE userId = ${params.userId} and parentId = ${params.parentId}`
+  conn.query(sql, function (err, result) {
+    if (err) {
+      jsonWrite(res, err)
+    }
+    if (result) {
+      res.json({
+        msg: '取消关注成功',
+        data: result
+      })
+    }
+  })
+})
 module.exports = router

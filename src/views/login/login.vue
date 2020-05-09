@@ -127,7 +127,7 @@ export default {
             if (res.data.result === 200) {
               this.$message.success(res.data.msg)
               this.$router.push({ path: '/home' });
-              this.setlocal(res.data.data[0])
+              this.setlocal(res.data.data)
               // this.local
             } else {
               this.$message.error(res.data.msg)

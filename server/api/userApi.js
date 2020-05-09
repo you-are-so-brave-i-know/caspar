@@ -78,18 +78,7 @@ router.post('/signin', (req, res) => {
     }
   })
 })
-// 获取当前登录的用户
-router.get('/nowuser', (req, res) => {
-  var sql = $sql.user.nowuser
-  conn.query(sql, function (err, result) {
-    if (err) {
-      console.log(err)
-    }
-    if (result) {
-      jsonWrite(res, result)
-    }
-  })
-})
+
 // 根据name注销用户
 router.post('/logout', (req, res) => {
   var params = req.body
@@ -103,20 +92,7 @@ router.post('/logout', (req, res) => {
     }
   })
 })
-// 测试
-router.post('/Test', (req, res) => {
-  var sql = $sql.user.test
-  var params = req.body
-  console.log(params)
-  conn.query(sql, [params.name, params.age], function (err, result) {
-    if (err) {
-      console.log(err)
-    }
-    if (result) {
-      jsonWrite(res, result)
-    }
-  })
-})
+
 // 获取所有用户
 router.get('/alluser', (req, res) => {
   var sql = $sql.user.all
