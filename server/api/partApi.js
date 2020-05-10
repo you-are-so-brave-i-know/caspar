@@ -176,10 +176,13 @@ router.post('/getAttentionList', (req, res) => {
 // 关注
 router.post('/attention', (req, res) => {
   var params = req.body
-  var sql = `INSERT INTO attention (userId,parentId,parentName) VALUES(${params.userId},${params.parentId},'${params.parentName}') `
+  var sql = `INSERT INTO attention (userId,parentId,parentName) VALUES(${params.userId},${params.parentId},'${params.parentName}');UPDATE user set fans = fans + 1 WHERE id = ${params.parentId}; UPDATE user set attention = attention + 1 WHERE id = ${params.userId}; `
   conn.query(sql, function (err, result) {
     if (err) {
-      jsonWrite(res, err)
+      res.json({
+        msg: '已关注',
+        data: result
+      })
     }
     if (result) {
       res.json({
@@ -192,7 +195,7 @@ router.post('/attention', (req, res) => {
 // 取消关注
 router.post('/unsubscribe', (req, res) => {
   var params = req.body
-  var sql = `DELETE FROM attention WHERE userId = ${params.userId} and parentId = ${params.parentId}`
+  var sql = `DELETE FROM attention WHERE userId = ${params.userId} and parentId = ${params.parentId};UPDATE user set fans = fans - 1 WHERE id = ${params.parentId}; UPDATE user set attention = attention - 1 WHERE id = ${params.userId};`
   conn.query(sql, function (err, result) {
     if (err) {
       jsonWrite(res, err)

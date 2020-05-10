@@ -105,19 +105,23 @@ router.get('/alluser', (req, res) => {
     }
   })
 })
-//根据id查询用户名字
+//根据id查询用户
 router.post('/getuser', (req, res) => {
   var params = req.body
-  var sql = `select username from user where id = '${params.id}'`
+  var sql = `select * from user where id = '${params.id}'`
   conn.query(sql, function (err, result) {
     if (err) {
       console.log(err)
     }
     if (result) {
-      jsonWrite(res, result)
+      res.json({
+        msg: 'success',
+        data: result[0]
+      })
     }
   })
 })
+
 // 修改用户信息
 router.post('/edit', (req, res) => {
   var params = req.body

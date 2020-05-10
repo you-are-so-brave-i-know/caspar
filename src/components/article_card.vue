@@ -9,6 +9,7 @@
         size="mini"
         plain
         :disabled="disabled"
+        v-show="userId!=authorId"
       >关注</el-button>
     </div>
     <div class="article-img" @click="$router.push(`/article/${id}`)">
@@ -57,13 +58,14 @@ export default {
   },
   data() {
     return {
-      disabled: false
+      disabled: false,
+      userId: window.localStorage.getItem('userId')
     };
   },
   methods: {
     attention(parentId, parentName) {
       const params = {
-        userId: window.localStorage.getItem('userId'),
+        userId: this.userId,
         parentId: parentId,
         parentName: parentName
       }
