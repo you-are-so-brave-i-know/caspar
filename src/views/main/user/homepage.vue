@@ -14,6 +14,12 @@
               <span style="color:#0066CC">1</span>&nbsp;|&nbsp;&nbsp;粉丝&nbsp;
               <span style="color:#6633CC">2</span>
             </p>
+            <el-button
+              type="primary"
+              size="mini"
+              plain
+              @click="$router.push({path:'/newArticle'})"
+            >写文章</el-button>
           </div>
         </div>
       </div>
@@ -80,7 +86,6 @@ export default {
         userId: this.userId,
         type: type
       }
-      console.log(type)
       this.$axios.post(`/api/part/my_article`, params, {}).then(res => {
         if (res.status == 200) {
           this[`${this.activeName}List`] = res.data.list
@@ -147,8 +152,8 @@ export default {
       width: 100%;
       height: 100%;
       .info-container {
-        height: 200px;
-        width: 220px;
+        height: 220px;
+        width: 250px;
         margin: 0 auto;
         position: relative;
         top: 50px;
@@ -181,7 +186,7 @@ export default {
       width: 450px;
       background-color: #fff;
       padding-bottom: 20px;
-      min-height: 600px;
+      height: 100%;
       border: 1px solid gray;
       border-radius: 5px;
       // margin: 0 30px;

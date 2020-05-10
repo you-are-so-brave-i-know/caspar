@@ -23,24 +23,30 @@ export const constantRoutes = [{
   path: '/',
   component: Layout,
   redirect: '/home',
-  children: [{
-    component: () => import('@/views/home/home'),
-    path: 'home',
-    name: 'home',
-    meta: {
-      title: '首页',
+  children: [
+    {
+      component: () => import('@/views/home/home'),
+      path: 'home',
+      name: 'home',
+      meta: {
+        title: '首页',
+      }
+    },
+    {
+      path: 'article/:id',
+      name: 'article',
+      component: () => import('@/views/main/article/index')
+    },
+    {
+      path: '/homepage/:id',
+      name: 'homepage',
+      component: () => import('@/views/main/user/homepage')
+    },
+    {
+      path: '/newArticle',
+      name: 'newArticle',
+      component: () => import('@/views/main/article/new_article')
     }
-  },
-  {
-    path: 'article/:id',
-    name: 'article',
-    component: () => import('@/views/main/article/index')
-  },
-  {
-    path: '/homepage/:id',
-    name: 'homepage',
-    component: () => import('@/views/main/user/homepage')
-  }
   ]
 }
 ]

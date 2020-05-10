@@ -27,7 +27,10 @@ export default {
   }
   &-main {
     width: 100%;
-    overflow: hidden;
+    // overflow: hidden;
+    height: 100%;
+    // background: #ededef;
+    // position: relative;
   }
   &-footer {
     height: 60px;

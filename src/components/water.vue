@@ -54,7 +54,7 @@ export default {
     return {
       showList: [],
       col: Math.floor(document.body.clientWidth / 500),
-      screenWidth: window.innerHeight,
+      screenWidth: 0,
       loadNum: 9,
       maxTag: false
     };
@@ -64,7 +64,7 @@ export default {
       return 400
     },
     gutterWidth() {
-      return (document.body.clientWidth - this.col * 400 - 160) / (this.col - 1)
+      return (this.screenWidth - this.col * 400 - 160) / (this.col - 1)
       // return 10
     },
   },
@@ -86,7 +86,6 @@ export default {
     },
     switchCol(col) {
       this.col = col;
-      console.log(this.col);
     },
     loadmore() {
       this.showList = this.data.slice(0, this.showList.length + this.loadNum - 1)
@@ -101,7 +100,8 @@ export default {
     // this.col = Math.floor(document.body.clientHeight / 500)
   },
   mounted() {
-
+    this.screenWidth = this.$parent.$el.clientWidth
+    this.col = Math.floor(this.screenWidth / 500)
   }
 };
 </script>

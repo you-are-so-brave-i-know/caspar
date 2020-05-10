@@ -67,7 +67,7 @@ router.get('/all_news', (req, res) => {
 // 获取用户个人的文章
 router.post('/my_article', (req, res) => {
   const params = req.body
-  var sql = `select part.*,user.userName from part,user where type = ${params.type} and part.authorId = ${params.userId}`
+  var sql = `select part.*,user.userName from part,user where type = ${params.type} and part.authorId = ${params.userId} and user.id = ${params.userId}`
   console.log(sql)
   conn.query(sql, function (err, result) {
     if (err) {
@@ -107,6 +107,21 @@ router.post('/article_detail', (req, res) => {
       res.json({
         msg: 'success',
         data: result[0]
+      })
+    }
+  })
+})
+// 新增文章
+router.post('/add_article', (req, res) => {
+  var params = req.body
+  var sql = `INSERT INTO part (title, url, content, authorId, type) VALUES('${params.title}','${params.url}','${params.content}',${params.authorId},${params.type})`
+  conn.query(sql, function (err, result) {
+    if (err) {
+      jsonWrite(res, err)
+    }
+    if (result) {
+      res.json({
+        msg: 'success',
       })
     }
   })
