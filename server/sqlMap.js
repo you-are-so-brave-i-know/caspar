@@ -10,8 +10,8 @@ const sqlMap = {
   destination: {},
   part: {
     all_photography: 'select part.*,user.userName from part,user where type = 1 and part.authorId = user.id',
-    all_tips: 'select * from part where type = 2',
-    all_news: 'select * from part where type = 3',
+    all_tips: 'select part.*,user.userName from part,user where type = 2 and part.authorId = user.id',
+    all_news: 'select part.*,user.userName from part,user where type = 3 and part.authorId = user.id',
     add_comment: "insert into comment (id, userId, userName , articleId, content) values (0, ?, ?, ?, ?)"
   }
 }

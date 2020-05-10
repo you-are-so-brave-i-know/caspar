@@ -23,7 +23,7 @@
             src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"
           ></el-avatar>
           <div class="header-hover">
-            {{islogin}}
+            <!-- {{islogin}} -->
             <p id="login" v-if="!islogin" @click="$router.push('/login')">登录</p>
             <p id="registered" v-if="!islogin" @click="$router.push('/signup')">注册</p>
             <p v-if="islogin" @click="$router.push('/homepage/1')"  id="homepage">个人主页</p>

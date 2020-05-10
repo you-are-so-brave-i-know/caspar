@@ -1,7 +1,22 @@
 <template>
   <div class="main">
     <div class="mypage">
-      <div class="info-container">个人信息+背景图</div>
+      <div class="tranparent">
+        <div class="info-container">
+          <img
+            src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"
+            style="object-fit: cover;"
+          />
+          <div class="username">{{userName}}</div>
+          <div>
+            <p>
+              关注&nbsp;
+              <span style="color:#0066CC">1</span>&nbsp;|&nbsp;&nbsp;粉丝&nbsp;
+              <span style="color:#6633CC">2</span>
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="content">
       <div class="left">
@@ -19,43 +34,60 @@
         <div class="noattention" v-show="list.length==0">没有任何关注的人</div>
       </div>
       <el-tabs v-model="activeName" @tab-click="handleClick" class="right">
-        <el-tab-pane label="全部" name="0">
-          <!-- <waterfall v-if="activeName=='photo'" :type="1"></waterfall> -->
+        <el-tab-pane label="摄影" name="photography">
+          <waterfall v-if="activeName=='photography'" :data="photographyList"></waterfall>
         </el-tab-pane>
-        <el-tab-pane label="摄影" name="1">
-          <!-- <waterfall v-if="activeName=='photo'" :type="1"></waterfall> -->
+        <el-tab-pane label="话题" name="tips">
+          <waterfall v-if="activeName=='tips'" :data="tipsList"></waterfall>
         </el-tab-pane>
-        <el-tab-pane label="话题" name="2">
-          <!-- <waterfall v-if="activeName=='tips'" :type="2"></waterfall> -->
-        </el-tab-pane>
-        <el-tab-pane label="资讯" name="3">
-          <!-- <waterfall v-if="activeName=='news'" :type="3"></waterfall> -->
+        <el-tab-pane label="资讯" name="news">
+          <waterfall v-if="activeName=='news'" :data="newsList"></waterfall>
         </el-tab-pane>
       </el-tabs>
     </div>
   </div>
 </template>
 <script>
-// import card from "../../components/article_card"
+import waterfall from "@/components/water"
 export default {
-  // components: { card },
+  components: { waterfall },
   data() {
     return {
+      userName: window.localStorage.getItem('userName'),
       userId: window.localStorage.getItem('userId'),
-      activeName: "1",
-      list: [
-      ]
+      activeName: "photography",
+      photographyList: [],
+      tipsList: [],
+      newsList: [],
+      list: []
     };
   },
   mounted() {
-    this.getDate()
     this.getAttentionList()
+    this.handleClick()
   },
   methods: {
-    handleClick(tab, event) {
-      this.getDate()
-    },
-    getDate() {
+    handleClick() {
+      let type = 1
+      if (this.activeName == 'photography') {
+        type = 1
+      } else if (this.activeName == "tips") {
+        type = 2
+      } else if (this.activeName == "news") {
+        type = 3
+      }
+      const params = {
+        userId: this.userId,
+        type: type
+      }
+      console.log(type)
+      this.$axios.post(`/api/part/my_article`, params, {}).then(res => {
+        if (res.status == 200) {
+          this[`${this.activeName}List`] = res.data.list
+        }
+      }).catch(err => {
+        this.$message.error(err.data.msg)
+      })
     },
     getAttentionList() {
       const params = {
@@ -105,7 +137,42 @@ export default {
   .mypage {
     height: 300px;
     width: 100%;
+    background-image: url("../../../assets/background.jpg");
+    background-position: 0 0;
+    background-origin: content-box;
+    background-repeat: no-repeat;
+    background-size: cover;
     // border: 1px solid;
+    .tranparent {
+      width: 100%;
+      height: 100%;
+      .info-container {
+        height: 200px;
+        width: 220px;
+        margin: 0 auto;
+        position: relative;
+        top: 50px;
+        text-align: center;
+        background-color: rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        padding: 10px 0px;
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.6);
+        }
+        .username {
+          margin-top: 10px;
+          color: #000066;
+          font-size: 20px;
+          font-weight: bolder;
+          color: #000066;
+        }
+        img {
+          width: 80px;
+          height: 80px;
+          border-radius: 50%;
+        }
+      }
+    }
   }
   .content {
     display: flex;
@@ -165,5 +232,11 @@ export default {
   text-align: center;
   color: rgb(140, 197, 255);
   padding-top: 10px;
+}
+
+@media screen and(max-width: 1500px) {
+  .mypage {
+    height: 600;
+  }
 }
 </style>
