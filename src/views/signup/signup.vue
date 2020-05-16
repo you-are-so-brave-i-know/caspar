@@ -25,7 +25,7 @@
             <el-input style="width: 300px" v-model="formValidate.password"></el-input>
           </el-form-item>
           <el-form-item label="头像" prop="header">
-            <el-input style="width: 300px" v-model="formValidate.header"></el-input>
+            <el-input type="textarea" style="width: 300px" v-model="formValidate.header"></el-input>
           </el-form-item>
           <!-- <Upload action="https://juejin.im/entry/599dad0ff265da248b04d7b8">
             <i-button type="ghost" i="ios-cloud-upload-outline" @click="adduser">上传文件</i-button>
@@ -84,32 +84,40 @@ export default {
   },
   methods: {
     next() {
-      var email = this.formValidate.mail
-      var username = this.formValidate.user
-      var password = this.formValidate.password
-      var header = this.formValidate.hedaer
-      var emailtext = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/
-      var check = emailtext.test(email)
-      if (this.current === 0) {
-        if (username !== '' & password !== '' & check & header) {
+      // var email = this.formValidate.mail
+      // var username = this.formValidate.user
+      // var password = this.formValidate.password
+      // var header = this.formValidate.hedaer
+      // var emailtext = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/
+      // var check = emailtext.test(email)
+      // if (this.current === 0) {
+      //   if (username !== '' & password !== '' & check & header !== "") {
+      //     this.current += 1
+      //   } else {
+      //     this.$message.error('完善信息')
+      //   }
+      // }
+      this.$refs.form.validate((valid) => {
+        if (valid) {
           this.current += 1
         } else {
           this.$message.error('完善信息')
+          return false;
         }
-      }
+      });
       if (this.current === 1) {
         // 注册用户
         this.$http.post('/api/user/addUser', {
-          email: email,
-          username: username,
-          password: password,
-          header: header
+          email: this.formValidate.mail,
+          username: this.formValidate.user,
+          password: this.formValidate.password,
+          header: this.formValidate.hedaer
         }).then(res => {
           // 注册成功后登录该账户
           if (res.status == 200) {
             this.$http.post('/api/user/signin', {
-              email: email,
-              password: password
+              email: this.formValidate.mail,
+              password: this.formValidate.password,
             }, {}).then(ress => {
               if (ress.status === 200) {
                 this.$message.success(ress.data.msg)
