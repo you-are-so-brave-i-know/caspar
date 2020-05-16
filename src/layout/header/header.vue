@@ -16,7 +16,7 @@
       </el-menu-item>
       <div class="item-header">
         <el-popover placement="top-start" width="200" trigger="hover">
-          <el-avatar @click="$router.push('/login')" slot="reference" size="large" :fit="contain">
+          <el-avatar @click="$router.push('/login')" slot="reference" size="large" fit="contain">
             <img :src="header?header:'../../../public/header/header.jpg'" />
           </el-avatar>
           <div class="header-hover">

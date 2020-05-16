@@ -64,7 +64,7 @@ npm run lint
 ### Start server  启动连接服务器
 ```
 cd server
-node server.js
+node server
 ```
 
 ### Customize configuration
