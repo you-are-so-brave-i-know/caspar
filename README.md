@@ -61,7 +61,7 @@ npm run test
 ```
 npm run lint
 ```
-### Start server  启动服务器
+### Start server  启动连接服务器
 ```
 cd server
 node server.js

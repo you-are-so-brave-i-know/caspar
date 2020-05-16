@@ -15,8 +15,10 @@
 
         <el-form-item prop="account">
           <span class="svg-container">
-            <svg-icon icon-class="user" />
+            <!-- <svg-icon icon-class="user" /> -->
+            <i class="el-icon-user"></i>
           </span>
+
           <el-input
             ref="account"
             v-model="loginForm.account"
@@ -30,7 +32,8 @@
 
         <el-form-item prop="password">
           <span class="svg-container">
-            <svg-icon icon-class="password" />
+            <!-- <svg-icon icon-class="password" /> -->
+            <i class="el-icon-key"></i>
           </span>
           <i class></i>
           <el-input
@@ -46,6 +49,7 @@
           />
           <span class="show-pwd" @click="showPwd">
             <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
+            <i :class="passwordType === 'password' ? 'el-icon-lock' : 'el-icon-unlock'"></i>
           </span>
         </el-form-item>
 
@@ -147,6 +151,7 @@ export default {
       window.localStorage.setItem('state', data.state)
       window.localStorage.setItem('isLogin', true)
       window.localStorage.setItem('userId', data.id)
+      window.localStorage.setItem('header', data.header)
     }
   },
   mounted() {
@@ -173,6 +178,7 @@ $cursor: #fff;
 /* reset element-ui css */
 .login-container {
   height: 920px;
+  width: 100%;
   background-image: url(https://pic.hanfugou.com/web/2019/8/30/15/edfd8d6a7e684902834fb9bf9cb95e64.jpeg_2000.jpg);
   background-position: center;
   background-repeat: no-repeat;
@@ -205,6 +211,9 @@ $cursor: #fff;
     background: rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     color: #454545;
+  }
+  i {
+    font-size: 25px;
   }
 }
 </style>

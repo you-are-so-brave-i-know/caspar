@@ -8,7 +8,13 @@
     </el-steps>
     <div class="form-con">
       <div class="step1" v-show="current == 0">
-        <el-form ref="form" :model="formValidate" label-position="left" :rules="ruleValidate" label-width="100px">
+        <el-form
+          ref="form"
+          :model="formValidate"
+          label-position="left"
+          :rules="ruleValidate"
+          label-width="100px"
+        >
           <el-form-item label="邮箱" prop="mail">
             <el-input style="width: 300px" v-model="formValidate.mail"></el-input>
           </el-form-item>
@@ -17,6 +23,9 @@
           </el-form-item>
           <el-form-item label="密码" prop="password">
             <el-input style="width: 300px" v-model="formValidate.password"></el-input>
+          </el-form-item>
+          <el-form-item label="头像" prop="header">
+            <el-input style="width: 300px" v-model="formValidate.header"></el-input>
           </el-form-item>
           <!-- <Upload action="https://juejin.im/entry/599dad0ff265da248b04d7b8">
             <i-button type="ghost" i="ios-cloud-upload-outline" @click="adduser">上传文件</i-button>
@@ -52,7 +61,8 @@ export default {
       formValidate: {
         user: '',
         password: '',
-        email: ''
+        email: '',
+        hedaer: ''
       },
       ruleValidate: {
         user: [
@@ -65,6 +75,9 @@ export default {
         mail: [
           { required: true, message: '请填写邮箱', trigger: 'blur' },
           { type: 'email', message: '邮箱格式不正确', trigger: 'blur' }
+        ],
+        header: [
+          { required: true, message: '请填写头像连接地址', trigger: 'blur' },
         ]
       }
     }
@@ -74,6 +87,7 @@ export default {
       var email = this.formValidate.mail
       var username = this.formValidate.user
       var password = this.formValidate.password
+      var header = this.formValidate.hedaer
       var emailtext = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/
       var check = emailtext.test(email)
       if (this.current === 0) {
@@ -88,7 +102,8 @@ export default {
         this.$http.post('/api/user/addUser', {
           email: email,
           username: username,
-          password: password
+          password: password,
+          header: header
         }).then(res => {
           // 注册成功后登录该账户
           if (res.status == 200) {
@@ -98,7 +113,7 @@ export default {
             }, {}).then(ress => {
               if (ress.status === 200) {
                 this.$message.success(ress.data.msg)
-               this.$router.push({ path: '/home' });
+                this.$router.push({ path: '/home' });
               } else {
                 this.$message.error(ress.data.msg)
               }

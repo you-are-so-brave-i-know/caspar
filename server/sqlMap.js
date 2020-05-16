@@ -1,6 +1,6 @@
 const sqlMap = {
   user: {
-    add: 'insert into user (id, email, username, password) values(0, ?, ?, ?)',
+    add: 'insert into user (id, email, username, password,header) values(0, ?, ?, ?,?)',
     test: 'insert into test (id, name, age) values(0, ?, ?)',
     all: 'select * from user',
   },
