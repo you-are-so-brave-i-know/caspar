@@ -77,7 +77,7 @@ export default {
           { type: 'email', message: '邮箱格式不正确', trigger: 'blur' }
         ],
         header: [
-          { required: true, message: '请填写头像连接地址', trigger: 'blur' },
+          { required: true, message: '请填写头像链接地址', trigger: 'blur' },
         ]
       }
     }
@@ -91,7 +91,7 @@ export default {
       var emailtext = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/
       var check = emailtext.test(email)
       if (this.current === 0) {
-        if (username !== '' & password !== '' & check) {
+        if (username !== '' & password !== '' & check & header) {
           this.current += 1
         } else {
           this.$message.error('完善信息')
