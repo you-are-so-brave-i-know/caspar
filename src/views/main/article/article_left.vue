@@ -3,27 +3,11 @@
     <p class="title">{{form.title}}</p>
     <div>
       <span class="time">{{ formatDate(form.create_time)}}</span>
-      <!-- &nbsp;&nbsp;|&nbsp;&nbsp; -->
-      <!-- <span>
-        共<span>{{sumImg}}</span>张图
-      </span>
-      &nbsp;&nbsp;|&nbsp;&nbsp;
-      <span>
-        共<span>{{sumComment}}</span>条评论
-      </span>-->
-      &nbsp;&nbsp;|&nbsp;
-      <span>
-        <span>{{form.like}}</span> 喜欢
-      </span>
     </div>
-    <p class="content">{{form.content}}</p>
-    <div class="image">
-      <!-- <el-image v-for="url in urls" :key="url" :src="url" class="urlimgs" lazy></el-image> -->
-    </div>
-    <el-image :src="form.url" lazy class="urlimgs"></el-image>
+    <div class="content" v-html="form.content">{{form.content}}</div>
     <div class="operate">
       <el-button type="primary" @click="likeit" :disabled="islike">喜欢</el-button>
-      <!-- <el-button type="primary" class="el-icon-star-off">收藏</el-button> -->
+      <!-- <el-butSon type="primary" class="el-icon-star-off">收藏</el-butSon> -->
     </div>
     <div class="share">
       <i class="el-icon-grape"></i>
@@ -39,10 +23,8 @@ export default {
   data() {
     return {
       form: {
-        title: "标题",
-        time: "2019-12-17 11:18:26",
-        like: 0,
-        url: ''
+        title: "",
+        create_time: '',
       },
       islike: false,
       urls: [

@@ -4,7 +4,7 @@
       <div class="tranparent">
         <div class="info-container">
           <img
-            src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"
+            :src="header"
             style="object-fit: cover;"
           />
           <div class="username">{{userName}}</div>
@@ -59,6 +59,7 @@ export default {
   components: { waterfall },
   data() {
     return {
+      header:window.localStorage.getItem('header'),
       userName: window.localStorage.getItem('userName'),
       userId: window.localStorage.getItem('userId'),
       activeName: "photography",

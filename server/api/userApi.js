@@ -3,6 +3,10 @@ var express = require('express')
 var router = express.Router()
 var mysql = require('mysql')
 var $sql = require('../sqlMap')
+
+var { singleMidle, dirPath, baseUrl } = require('../../upload')
+let fs = require("fs");
+
 // 连接数据库
 var conn = mysql.createConnection(models.mysql)
 conn.connect()
@@ -135,4 +139,27 @@ router.post('/edit', (req, res) => {
     }
   })
 })
+//接收过来的头像文件
+router.post('/uploadImg', singleMidle, function (req, res, next) {
+  let file = req.file;
+  // 拼接绝对地址
+  const fileAddress = dirPath + '\\src\\assets\\img\\'
+  //文件改名保存
+  fs.renameSync(fileAddress + file.filename, fileAddress + 'userHeader_' + file.originalname);
+  res.json({
+    msg: '图片上传成功',
+    data: {
+      url: `${baseUrl}/userHeader_${file.originalname}`,
+      path: `${fileAddress}userHeader_${file.originalname}`,
+      name: `userHeader_${file.originalname}`
+    }
+  })
+
+});
+
+//获得用户头像src
+router.get('/download/:picture', function (req, res) {
+  res.sendFile(dirPath + "/src/assets/img/" + req.params.picture + ".jpg")
+})
+
 module.exports = router

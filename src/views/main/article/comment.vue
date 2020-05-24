@@ -62,6 +62,7 @@ export default {
         this.$axios.post(url, params, {}).then(res => {
           if (res.status == 200) {
             this.getComment()
+            this.textarea = ""
           }
         })
       } else {

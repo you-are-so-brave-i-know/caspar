@@ -22,9 +22,10 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item label="文章内容" prop="content">
-        <el-input type="textarea" v-model="form.content"></el-input>
+        <div id="editorElem"></div>
       </el-form-item>
 
+      <el-button @click="getContent">get</el-button>
       <el-form-item>
         <el-button type="primary" @click="submitForm('form')">立即创建</el-button>
         <el-button @click="resetForm('form')">重置</el-button>
@@ -33,7 +34,9 @@
   </div>
 </template>
 <script>
+import E from 'wangeditor';  //引入刚npm安装的wangeditor插件
 export default {
+  name: "newarticle",
   data() {
     return {
       form: {
@@ -44,7 +47,8 @@ export default {
         content: '',
         type: 1
       },
-      userId:window.localStorage.getItem('userId'),
+      editorContent: "",
+      userId: window.localStorage.getItem('userId'),
       loading: false,
       rules: {
         title: [
@@ -57,6 +61,16 @@ export default {
       }
     }
   },
+
+  mounted() {
+    var editor = new E('#editorElem')
+    editor.customConfig.onchange = (html) => {
+      this.form.content = html
+    }
+    editor.customConfig.height = '500px'
+    editor.customConfig.uploadImgServer = '/upload'  // 上传图片到服务器
+    editor.create()
+  },
   methods: {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
@@ -66,6 +80,9 @@ export default {
           return false;
         }
       });
+    },
+    getContent() {
+      console.log(this.form.content)
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
@@ -86,8 +103,9 @@ export default {
       }).finally(() => {
         this.loading = false
       })
-    }
-  },
+    },
+
+  }
 }
 </script>
 <style lang="scss" scoped>
@@ -96,12 +114,18 @@ export default {
   position: relative;
   padding-top: 100px;
   .demo-form {
-    width: 700px;
+    width: 1000px;
     border: 1px solid black;
     margin: 0 auto;
     padding: 30px 40px 10px 20px;
     background: #ededef;
     border-radius: 5px;
+  }
+}
+#editorElem {
+  background: #fff;
+  .w-e-text-container {
+    height: 500px;
   }
 }
 </style>

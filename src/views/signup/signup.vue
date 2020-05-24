@@ -25,7 +25,22 @@
             <el-input style="width: 300px" v-model="formValidate.password"></el-input>
           </el-form-item>
           <el-form-item label="头像" prop="header">
-            <el-input type="textarea" style="width: 300px" v-model="formValidate.header"></el-input>
+            <!-- <el-input type="textarea" style="width: 300px" v-model="formValidate.header"></el-input> -->
+            <el-upload
+              ref="upload"
+              name="head"
+              class="avatar-uploader"
+              action="/api/user/uploadImg"
+              :show-file-list="false"
+              :on-success="handleAvatarSuccess"
+              :before-upload="beforeAvatarUpload"
+              :auto-upload="true"
+              :multiple="false"
+              :limit="1"
+            >
+              <img v-if="formValidate.img" :src="formValidate.img" class="avatar" />
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
           </el-form-item>
           <!-- <Upload action="https://juejin.im/entry/599dad0ff265da248b04d7b8">
             <i-button type="ghost" i="ios-cloud-upload-outline" @click="adduser">上传文件</i-button>
@@ -47,22 +62,12 @@ export default {
   data() {
     return {
       current: 0,
-      formItem: {
-        input: '',
-        select: '',
-        radio: 'male',
-        checkbox: [],
-        switch: true,
-        date: '',
-        time: '',
-        slider: [20, 50],
-        textarea: ''
-      },
       formValidate: {
         user: '',
         password: '',
         email: '',
-        hedaer: ''
+        header: '',
+        img: ''
       },
       ruleValidate: {
         user: [
@@ -84,19 +89,6 @@ export default {
   },
   methods: {
     next() {
-      // var email = this.formValidate.mail
-      // var username = this.formValidate.user
-      // var password = this.formValidate.password
-      // var header = this.formValidate.hedaer
-      // var emailtext = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/
-      // var check = emailtext.test(email)
-      // if (this.current === 0) {
-      //   if (username !== '' & password !== '' & check & header !== "") {
-      //     this.current += 1
-      //   } else {
-      //     this.$message.error('完善信息')
-      //   }
-      // }
       this.$refs.form.validate((valid) => {
         if (valid) {
           this.current += 1
@@ -132,6 +124,9 @@ export default {
         })
       }
     },
+    submitUpload() {
+      this.$refs.upload.submit();
+    },
     handleSubmit(name) {
       this.$refs[name].validate((valid) => {
         if (valid) {
@@ -140,6 +135,24 @@ export default {
           this.$message.error('表单验证失败!')
         }
       })
+    },
+    handleAvatarSuccess(res, file) {
+      this.$message(res.msg)
+      this.formValidate.header = res.data.path
+      this.formValidate.img = URL.createObjectURL(file.raw);
+    },
+    beforeAvatarUpload(file) {
+
+      const isJPG = file.type === 'image/jpeg';
+      const isLt2M = file.size / 1024 / 1024 < 2;
+
+      if (!isJPG) {
+        this.$message.error('上传头像图片只能是 JPG 格式!');
+      }
+      if (!isLt2M) {
+        this.$message.error('上传头像图片大小不能超过 2MB!');
+      }
+      return isJPG && isLt2M;
     }
   }
 }
@@ -163,5 +176,32 @@ export default {
 
 .finsh-el-step {
   text-align: center;
+}
+.avatar-uploader {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  width: 178px;
+  height: 178px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  &:hover {
+    border-color: #409eff;
+  }
+}
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  line-height: 178px;
+  text-align: center;
+}
+.avatar {
+  width: 178px;
+  height: 178px;
+  display: block;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 </style>

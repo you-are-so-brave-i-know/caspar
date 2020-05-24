@@ -3,6 +3,7 @@ const debug = process.env.NODE_ENV !== 'production'
 //const VueConf = require('./src/assets/js/libs/vue_config_class')
 //const vueConf = new VueConf(process.argv)
 module.exports = {
+  baseUrl:'./',
   publicPath: './', //vueConf.baseUrl, // 根域上下文目录
   outputDir: 'dist', // 构建输出目录
   assetsDir: 'assets', // 静态资源目录 (js, css, img, fonts)

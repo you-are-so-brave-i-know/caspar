@@ -6,16 +6,13 @@
           <p class="title">{{form.title}}</p>
           <div>
             <span class="time">{{ formatDate(form.create_time)}}</span>
-            &nbsp;&nbsp;|&nbsp;
+            <!-- &nbsp;&nbsp;|&nbsp;
             <span>
               <span>{{form.like}}</span> 喜欢
-            </span>
+            </span> -->
           </div>
-          <p class="content">{{form.content}}</p>
-          <div class="image">
-            <!-- <el-image v-for="url in urls" :key="url" :src="url" class="urlimgs" lazy></el-image> -->
-          </div>
-          <el-image :src="form.url" lazy class="urlimgs"></el-image>
+          <div class="content" v-html="form.content">{{form.content}}</div>
+          <!-- <el-image :src="form.url" lazy class="urlimgs"></el-image> -->
           <div class="operate">
             <el-button type="primary" @click="likeit" :disabled="islike">喜欢</el-button>
             <!-- <el-button type="primary" class="el-icon-star-off">收藏</el-button> -->

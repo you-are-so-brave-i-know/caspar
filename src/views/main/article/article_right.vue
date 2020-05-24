@@ -4,7 +4,9 @@
       <el-avatar size="medium" :src="header"></el-avatar>
     </div>
     <p class="name">{{username}}</p>
-    <p class="labs">关注&nbsp;{{attention}}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;粉丝&nbsp;{{fans}}</p>
+    <p
+      class="labs"
+    >关注&nbsp;{{attention?attention:0}}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;粉丝&nbsp;{{fans?fans:0}}</p>
     <div class="operate">
       <el-button size="small" plain>关注</el-button>
     </div>
@@ -29,7 +31,7 @@ export default {
   text-align: center;
   border-radius: 4px;
   padding: 20px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .24);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.24);
   .header {
   }
   .name {
