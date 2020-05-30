@@ -15,8 +15,8 @@
           :rules="ruleValidate"
           label-width="100px"
         >
-          <el-form-item label="邮箱" prop="mail">
-            <el-input style="width: 300px" v-model="formValidate.mail"></el-input>
+          <el-form-item label="邮箱" prop="email">
+            <el-input style="width: 300px" v-model="formValidate.email"></el-input>
           </el-form-item>
           <el-form-item label="用户名" prop="user">
             <el-input style="width: 300px" v-model="formValidate.user"></el-input>
@@ -38,13 +38,10 @@
               :multiple="false"
               :limit="1"
             >
-              <img v-if="formValidate.img" :src="formValidate.img" class="avatar" />
-              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+              <img v-show="formValidate.header" :src="formValidate.header" class="avatar" />
+              <i v-show="!formValidate.header" class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
           </el-form-item>
-          <!-- <Upload action="https://juejin.im/entry/599dad0ff265da248b04d7b8">
-            <i-button type="ghost" i="ios-cloud-upload-outline" @click="adduser">上传文件</i-button>
-          </Upload>-->
         </el-form>
       </div>
       <div class="step2" v-show="current == 1">
@@ -77,7 +74,7 @@ export default {
           { required: true, message: '请填写密码', trigger: 'blur' },
           { type: 'string', min: 6, message: '密码长度不能小于6位', trigger: 'blur' }
         ],
-        mail: [
+        email: [
           { required: true, message: '请填写邮箱', trigger: 'blur' },
           { type: 'email', message: '邮箱格式不正确', trigger: 'blur' }
         ],
@@ -98,12 +95,13 @@ export default {
         }
       });
       if (this.current === 1) {
+        console.log(this.formValidate)
         // 注册用户
         this.$http.post('/api/user/addUser', {
-          email: this.formValidate.mail,
+          email: this.formValidate.email,
           username: this.formValidate.user,
           password: this.formValidate.password,
-          header: this.formValidate.hedaer
+          header: this.formValidate.header
         }).then(res => {
           // 注册成功后登录该账户
           if (res.status == 200) {
@@ -138,8 +136,7 @@ export default {
     },
     handleAvatarSuccess(res, file) {
       this.$message(res.msg)
-      this.formValidate.header = res.data.path
-      this.formValidate.img = URL.createObjectURL(file.raw);
+      this.formValidate.header = res.data.url
     },
     beforeAvatarUpload(file) {
 

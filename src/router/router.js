@@ -20,6 +20,11 @@ export const constantRoutes = [{
   hidden: true
 },
 {
+  path: '/manage',
+  component: () => import('@/views/main/manage/manage'),
+  hidden:true
+},
+{
   path: '/',
   component: Layout,
   redirect: '/home',

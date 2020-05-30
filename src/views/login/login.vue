@@ -124,17 +124,19 @@ export default {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true;
+
           this.$http.post('/api/user/signin', {
             email: this.loginForm.account,
             password: this.loginForm.password,
           }, {}).then(res => {
             if (res.data.result === 200) {
               this.$message.success(res.data.msg)
-              this.$router.push({ path: '/home' });
               this.setlocal(res.data.data)
-              // this.local
-            } else {
-              this.$message.error(res.data.msg)
+              if (res.data.data.root) {
+                this.$router.push({ path: '/manage' })
+              } else {
+                this.$router.push({ path: '/home' });
+              }
             }
           }).catch(err => {
             this.$message.error(err.data.msg)

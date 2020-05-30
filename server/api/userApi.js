@@ -143,17 +143,30 @@ router.post('/edit', (req, res) => {
 router.post('/uploadImg', singleMidle, function (req, res, next) {
   let file = req.file;
   // 拼接绝对地址
-  const fileAddress = dirPath + '\\src\\assets\\img\\'
-  //文件改名保存
+  const fileAddress = dirPath + '\\public\\header\\'
   fs.renameSync(fileAddress + file.filename, fileAddress + 'userHeader_' + file.originalname);
   res.json({
+    state: 200,
     msg: '图片上传成功',
     data: {
       url: `${baseUrl}/userHeader_${file.originalname}`,
-      path: `${fileAddress}userHeader_${file.originalname}`,
+      // path: `${fileAddress}userHeader_${file.originalname}`,
       name: `userHeader_${file.originalname}`
     }
   })
+  // fs.stat(fileAddress + 'userHeader_' + file.originalname, function (err, stats) {
+  //   if (!stats) {
+  //     res.json({
+  //       state: 500,
+  //       msg: '同名头像已经存在，请修改名称',
+  //       data: {
+  //       }
+  //     })
+  //   }
+  // })
+  // 源文件删除
+  // fs.unlinkSync('/public/header/' + 'userHeader_' + file.originalname)
+  //文件改名保存
 
 });
 
