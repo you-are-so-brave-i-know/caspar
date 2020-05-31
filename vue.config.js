@@ -1,9 +1,12 @@
 const path = require('path')
 const debug = process.env.NODE_ENV !== 'production'
+function resolve(dir){
+  return path.join(__dirname, dir)
+}
 //const VueConf = require('./src/assets/js/libs/vue_config_class')
 //const vueConf = new VueConf(process.argv)
 module.exports = {
-  baseUrl:'./',
+  baseUrl: './',
   publicPath: './', //vueConf.baseUrl, // 根域上下文目录
   outputDir: 'dist', // 构建输出目录
   assetsDir: 'assets', // 静态资源目录 (js, css, img, fonts)
@@ -42,5 +45,15 @@ module.exports = {
         },
       }
     },
-  }
+  },
+  configureWebpack: {
+    // provide the app's title in webpack's name field, so that
+    // it can be accessed in index.html to inject the correct title.
+    name: name,
+    resolve: {
+      alias: {
+        '@': resolve('src')
+      }
+    }
+  },
 }

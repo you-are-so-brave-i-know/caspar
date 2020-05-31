@@ -154,6 +154,7 @@ export default {
       window.localStorage.setItem('isLogin', true)
       window.localStorage.setItem('userId', data.id)
       window.localStorage.setItem('header', data.header)
+      window.localStorage.setItem('root', data.root)
     }
   },
   mounted() {

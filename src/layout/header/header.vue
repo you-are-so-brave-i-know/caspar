@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-menu
-      default-active="home"
+      :default-active="activeIndex"
       class="el-menu-demo"
       mode="horizontal"
       @select="handleSelect"
@@ -9,7 +9,7 @@
       text-color="#555555"
       active-text-color="#66ccff"
     >
-      <el-menu-item v-for="item in navList" :key="item.name" :index="item.route">
+      <el-menu-item v-for="item in navList" :key="item.name" :index="item.route" v-show="item.show">
         <template slot="title">
           <span>{{item.name}}</span>
         </template>
@@ -23,7 +23,7 @@
             <!-- {{islogin}} -->
             <p id="login" v-if="!islogin" @click="$router.push('/login')">登录</p>
             <p id="registered" v-if="!islogin" @click="$router.push('/signup')">注册</p>
-            <p v-if="islogin" @click="$router.push('/homepage/1')" id="homepage">个人主页</p>
+            <p v-if="!isroot&&islogin" @click="$router.push('/homepage/1')" id="homepage">个人主页</p>
             <p @click="signOut" v-if="islogin">注销</p>
           </div>
         </el-popover>
@@ -32,17 +32,24 @@
   </div>
 </template>
 <script>
-// const islogin = window.localStorage.getItem('isLogin')
+const isroot = window.localStorage.getItem('root')
 export default {
   data() {
     return {
       islogin: window.localStorage.getItem('isLogin'),
       header: window.localStorage.getItem('header'),
-      activeIndex: "home",
+      isroot: isroot,
+      activeIndex: "",
       navList: [
         {
           route: "home",
-          name: "首页"
+          name: "首页",
+          show: !isroot
+        },
+        {
+          route: "manage",
+          name: '管理',
+          show: isroot
         }
       ]
     };
@@ -58,7 +65,9 @@ export default {
     }
   },
   mounted() {
-    // this.islogin = window.localStorage.getItem('isLogin')
+    if (isroot) {
+      this.activeIndex = 'manage'
+    }
   }
 };
 </script>
@@ -76,6 +85,7 @@ export default {
 //   height: 60px;
 // }
 .el-menu-demo {
+  height: 100%;
 }
 .item-header {
   float: right;

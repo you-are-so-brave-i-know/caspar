@@ -8,7 +8,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 import VueLazyload from 'vue-lazyload'
 import '@/icons' // icon
 // import '@/permission' // permission control
-
+import "./style/index.scss"
 import axios from 'axios'
 import waterfall from 'vue-waterfall2'
 

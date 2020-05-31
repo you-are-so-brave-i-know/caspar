@@ -19,15 +19,11 @@ export const constantRoutes = [{
   component: () => import('@/views/error-page/404'),
   hidden: true
 },
-{
-  path: '/manage',
-  component: () => import('@/views/main/manage/manage'),
-  hidden:true
-},
+
 {
   path: '/',
   component: Layout,
-  redirect: '/home',
+  redirect: '/login',
   children: [
     {
       component: () => import('@/views/home/home'),
@@ -51,7 +47,32 @@ export const constantRoutes = [{
       path: '/newArticle',
       name: 'newArticle',
       component: () => import('@/views/main/article/new_article')
-    }
+    },
+    {
+      path: '/manage',
+      component: () => import('@/views/main/manage/manage'),
+      hidden:true
+    },
+    {
+      path: '/userManage',
+      component: () => import('@/views/main/manage/userManage'),
+      hidden:true
+    },
+    {
+      path: '/articleManage',
+      component: () => import('@/views/main/manage/articleManage'),
+      hidden:true
+    },
+    {
+      path: '/commentManage',
+      component: () => import('@/views/main/manage/commentManage'),
+      hidden:true
+    },
+    {
+      path: '/attentionManage',
+      component: () => import('@/views/main/manage/attentionManage'),
+      hidden:true
+    },
   ]
 }
 ]
