@@ -6,6 +6,7 @@ const express = require('express')
 const app = express()
 const userApi = require('./api/userApi')
 const partApi = require('./api/partApi')
+const manageApi = require('./api/manage')
 app.all('*', function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*')
   res.header('Access-Control-Allow-Headers', 'X-Requested-With')
@@ -22,6 +23,7 @@ app.use(bodyParser.urlencoded({
 // 后端api路由
 app.use('/api/user', userApi)
 app.use('/api/part', partApi)
+app.use('/api/manage', manageApi)
 // 监听接口
 app.listen(3000)
 console.log('success listen at post :3000')

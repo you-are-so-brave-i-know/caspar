@@ -50,28 +50,32 @@ export const constantRoutes = [{
     },
     {
       path: '/manage',
+      name: 'manage',
       component: () => import('@/views/main/manage/manage'),
-      hidden:true
+      hidden: true
     },
     {
       path: '/userManage',
-      component: () => import('@/views/main/manage/userManage'),
-      hidden:true
+      name: 'userManage',
+      component: () => import('../views/main/manage/userManage.vue'),
+      hidden: true
     },
     {
       path: '/articleManage',
+      name: 'articleManage',
       component: () => import('@/views/main/manage/articleManage'),
-      hidden:true
+      hidden: true
     },
     {
       path: '/commentManage',
+      name: 'commentManage',
       component: () => import('@/views/main/manage/commentManage'),
-      hidden:true
+      hidden: true
     },
     {
       path: '/attentionManage',
       component: () => import('@/views/main/manage/attentionManage'),
-      hidden:true
+      hidden: true
     },
   ]
 }

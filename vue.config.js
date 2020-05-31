@@ -3,6 +3,7 @@ const debug = process.env.NODE_ENV !== 'production'
 function resolve(dir){
   return path.join(__dirname, dir)
 }
+const name ="hanfuxiu"
 //const VueConf = require('./src/assets/js/libs/vue_config_class')
 //const vueConf = new VueConf(process.argv)
 module.exports = {

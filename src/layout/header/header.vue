@@ -50,6 +50,16 @@ export default {
           route: "manage",
           name: '管理',
           show: isroot
+        },
+        {
+          route: "userManage",
+          name: '用户管理',
+          show: isroot
+        },
+        {
+          route: "commentManage",
+          name: '评论管理',
+          show: isroot
         }
       ]
     };
@@ -66,7 +76,7 @@ export default {
   },
   mounted() {
     if (isroot) {
-      this.activeIndex = 'manage'
+      this.activeIndex = this.$route.name
     }
   }
 };

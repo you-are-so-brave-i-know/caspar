@@ -1,6 +1,7 @@
-.app-container{
+.app-container {
   padding: 10px 20px 20px;
 }
+
 .top-container {
   display: flex;
   justify-content: space-between;
@@ -48,8 +49,8 @@
 }
 
 .search-con {
-  background-color: rgb(160, 207, 255,0.1);
-  box-shadow: 0px 2px 6px rgba(219,219,219,1);
+  background-color: rgb(160, 207, 255, 0.1);
+  box-shadow: 0px 2px 6px rgba(219, 219, 219, 1);
   margin-bottom: 10px;
   padding-left: 8px;
   padding-right: 8px;
@@ -69,12 +70,21 @@
     }
   }
 }
-.table-con{
-  box-shadow: 0px 2px 6px rgba(219,219,219,1);
+
+.table-con {
+  box-shadow: 0px 2px 6px rgba(219, 219, 219, 1);
   border-radius: 4px;
 }
-.page-con{
+
+.page-con {
   padding: 15px 20px;
   display: flex;
   justify-content: flex-end;
+}
+
+.dialog-con {
+  .dialog-footer {
+    display: flex;
+    justify-content: flex-end;
+  }
 }
